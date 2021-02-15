@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "soulsmith:copper_ingot"
+    }
+  },
+  "result": {
+    "item": "soulsmith:copper_block"
+  }
+}
+

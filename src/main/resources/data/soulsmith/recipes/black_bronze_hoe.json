@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "## ",
+    " x ",
+    " x "
+  ],
+  "key": {
+    "#": {
+      "item": "soulsmith:black_bronze_ingot"
+    },
+	"x": {
+      "item": "minecraft:stick"
+    
+  },
+  "result": {
+    "item": "soulsmith:black_bronze_hoe"
+  }
+}

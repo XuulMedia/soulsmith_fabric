@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "soulsmith",
+  "version": "${version}",
+
+  "name": "Soulsmithing",
+  "description": "Extends the art of smithing to the very souls of those who have fallen. Move from the mundane to the mystic!",
+  "authors": [
+    "Xuul"
+  ],
+  "contact": {
+    "homepage": "Youtube.com/c/xuul",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": " GPL-3.0 License",
+  "icon": "assets/soulsmith/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.xuul.soulsmith.Soulsmith"
+    ]
+  },
+  "mixins": [
+
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

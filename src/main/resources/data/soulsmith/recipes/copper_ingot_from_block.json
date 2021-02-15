@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "gold_ingot",
+  "ingredients": [
+    {
+      "item": "soulsmith:copper_block"
+    }
+  ],
+  "result": {
+    "item": "soulsmith:copper_ingot",
+    "count": 9
+  }
+}

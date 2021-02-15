@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    " x ",
+    " x "
+  ],
+  "key": {
+    "#": {
+      "item": "soulsmith:copper_ingot"
+    },
+	"x": {
+      "item": "minecraft:stick"
+    
+  },
+  "result": {
+    "item": "soulsmith:copper_pickaxe"
+  }
+}

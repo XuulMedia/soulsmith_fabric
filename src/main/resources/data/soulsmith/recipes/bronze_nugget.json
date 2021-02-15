@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "soulsmith:bronze_nugget"
+    }
+  ],
+  "result":
+  {
+    "item": "soulsmith:bronze_nugget",
+    "count": 9
+  }
+}

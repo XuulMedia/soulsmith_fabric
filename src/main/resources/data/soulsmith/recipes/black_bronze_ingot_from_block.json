@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "gold_ingot",
+  "ingredients": [
+    {
+      "item": "soulsmith:black_bronze_block"
+    }
+  ],
+  "result": {
+    "item": "soulsmith:black_bronze_ingot",
+    "count": 9
+  }
+}

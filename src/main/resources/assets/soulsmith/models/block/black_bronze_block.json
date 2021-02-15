@@ -1,0 +1,7 @@
+
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "soulsmith:blocks/black_bronze_block"
+  }
+}

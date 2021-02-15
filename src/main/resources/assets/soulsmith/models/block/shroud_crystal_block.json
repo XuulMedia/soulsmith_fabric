@@ -1,0 +1,7 @@
+
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "soulsmith:blocks/shroud_crystal_block"
+  }
+}

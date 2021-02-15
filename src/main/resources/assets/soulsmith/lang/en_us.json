@@ -1,0 +1,49 @@
+{
+  "itemGroup.SOULSMITH" : "Soul Smithing",
+
+  "item.soulsmith.rykle" : "Rykle Crystal",
+  "item.soulsmith.shroud_crystal" : "Shroud Crystal",
+  "item.soulsmith.tyrellus" : "Tyrellus Crystal",
+  "item.soulsmith.black_bronze_ingot" : "Black-Bronze Ingot",
+  "item.soulsmith.bronze_ingot" : "Bronze Ingot",
+  "item.soulsmith.silver_ingot" : "Silver Ingot",
+  "item.soulsmith.tin_ingot" : "Tin Ingot",
+  "item.soulsmith.steel_ingot" : "Steel Ingot",
+
+  "item.soulsmith.bronze_pickaxe" : "Bronze Pickaxe",
+  "item.soulsmith.bronze_shovel" : "Bronze Shovel",
+  "item.soulsmith.bronze_axe" : "Bronze Axe",
+  "item.soulsmith.bronze_sword" : "Bronze Sword",
+  "item.soulsmith.bronze_hoe" : "Bronze Hoe",
+  "item.soulsmith.bronze_hammer" : "Bronze Hammer",
+
+  "item.soulsmith.steel_pickaxe" : "Steel Pickaxe ",
+  "item.soulsmith.steel_shovel" : "Steel Shovel",
+  "item.soulsmith.steel_axe" : "Steel Axe",
+  "item.soulsmith.steel_sword" : "Steel Sword",
+  "item.soulsmith.steel_hoe" : "Steel Hoe",
+  "item.soulsmith.steel_hammer" : "Steel Hammer",
+
+  "item.soulsmith.copper_nugget" :  "Copper Nugget",
+  "item.soulsmith.tin_nugget" : "Tin Nugget",
+  "item.soulsmith.bronze_nugget" :  "Bronze Nugget",
+  "item.soulsmith.steel_nugget" : "Steel Nugget",
+  "item.soulsmith.black_bronze_nugget" :  "Black Bronze Nugget",
+  "item.soulsmith.silver_nugget" : "Silver Nugget",
+
+
+  "block.soulsmith.rykle_ore" : "Rykle Ore",
+  "block.soulsmith.nether_shroud_crystal_ore" : "Shroud Crystal Ore",
+  "block.soulsmith.end_tyrellus_ore" : "Tyrellus Ore",
+  "block.soulsmith.copper_ore" : "Copper Ore",
+  "block.soulsmith.tin_ore" : "Tin Ore",
+  "block.soulsmith.nether_silver_ore" : "Nether Silver Ore",
+
+  "block.soulsmith.tin_block" : "Block of Tin",
+  "block.soulsmith.bronze_block" :  "Block of Bronze",
+  "block.soulsmith.steel_block" : "Block of Steel",
+  "block.soulsmith.black_bronze_block" :  "Block of Black Bronze"
+
+
+
+}
