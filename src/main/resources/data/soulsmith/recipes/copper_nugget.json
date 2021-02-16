@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "soulsmith:copper_nugget"
+      "item": "minecraft:copper_ingot"
     }
   ],
   "result":

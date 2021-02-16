@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "soulsmith:bronze_nugget"
+      "item": "soulsmith:ingot_bronze"
     }
   ],
   "result":

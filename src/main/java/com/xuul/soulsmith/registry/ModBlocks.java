@@ -56,7 +56,7 @@ public class ModBlocks {
     public static void registerItems() {
 
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "ore_tin"), ORE_TIN);
-        Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "ore__nether_silver"), ORE_NETHER_SILVER);
+        Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "ore_nether_silver"), ORE_NETHER_SILVER);
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "ore_rykle"), ORE_RYKLE);
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "ore_shroud_crystal"), ORE_SHROUD_CRYSTAL);
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "ore_tyrellus"), ORE_TYRELLUS);

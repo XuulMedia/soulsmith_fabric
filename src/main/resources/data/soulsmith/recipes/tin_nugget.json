@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "soulsmith:tin_nugget"
+      "item": "soulsmith:ingot_tin"
     }
   ],
   "result":
   {
-    "item": "soulsmith:tin_nugget",
+    "item": "soulsmith:nugget_tin",
     "count": 9
   }
 }

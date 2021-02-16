@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "soulsmith:steel_block"
+          "name": "soulsmith:ore_tin"
         }
       ],
       "conditions": [

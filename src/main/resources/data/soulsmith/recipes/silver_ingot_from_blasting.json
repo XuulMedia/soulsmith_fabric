@@ -2,9 +2,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "soulsmith:nether_silver_ore"
+    "item": "soulsmith:ore_nether_silver"
   },
-  "result": "soulsmith:silver_ingot",
+  "result": "soulsmith:ingot_silver",
   "experience": 1,
   "cookingtime": 100
 }

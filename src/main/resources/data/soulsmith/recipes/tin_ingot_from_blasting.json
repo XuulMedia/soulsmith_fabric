@@ -2,9 +2,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "soulsmith:tin_ore"
+    "item": "soulsmith:ore_tin"
   },
-  "result": "soulsmith:tin_ingot",
+  "result": "soulsmith:ingot_tin",
   "experience": 0.7,
   "cookingtime": 100
 }

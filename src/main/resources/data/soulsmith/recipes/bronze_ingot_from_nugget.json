@@ -8,10 +8,10 @@
   ],
   "key": {
     "#": {
-      "item": "soulsmith:bronze_nugget"
+      "item": "soulsmith:nugget_bronze"
     }
   },
   "result": {
-    "item": "soulsmith:bronze_ingot"
+    "item": "soulsmith:ingot_bronze"
   }
 }

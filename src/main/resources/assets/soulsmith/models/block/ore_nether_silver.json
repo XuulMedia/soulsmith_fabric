@@ -2,6 +2,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "soulsmith:blocks/nether_silver_ore"
+    "all": "soulsmith:blocks/ore_nether_silver"
   }
 }

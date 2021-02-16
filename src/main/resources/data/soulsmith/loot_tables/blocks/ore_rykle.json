@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "soulsmith:nether_shroud_crystal_ore"
+              "name": "soulsmith:ore_rykle"
             },
             {
               "type": "minecraft:item",
@@ -43,7 +43,7 @@
                   "formula": "minecraft:ore_drops"
                 }
               ],
-              "name": "soulsmith:shroud_crystal"
+              "name": "soulsmith:rykle"
             }
 
           ]

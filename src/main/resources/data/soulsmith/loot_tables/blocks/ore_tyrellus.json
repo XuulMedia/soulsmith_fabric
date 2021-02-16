@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "soulsmith:tin_block"
+          "name": "soulsmith:ore_tyrellus"
         }
       ],
       "conditions": [

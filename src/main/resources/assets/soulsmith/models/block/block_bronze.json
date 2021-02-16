@@ -2,6 +2,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "soulsmith:blocks/bronze_block"
+    "all": "soulsmith:blocks/block_bronze"
   }
 }

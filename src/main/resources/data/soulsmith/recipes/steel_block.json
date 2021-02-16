@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "soulsmith:copper_ingot"
+      "item": "soulsmith:steel_ingot"
     }
   },
   "result": {
-    "item": "soulsmith:copper_block"
+    "item": "soulsmith:block_steel"
   }
 }

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "soulsmith:end_tyrellus_ore"
+          "name": "soulsmith:block_bronze"
         }
       ],
       "conditions": [

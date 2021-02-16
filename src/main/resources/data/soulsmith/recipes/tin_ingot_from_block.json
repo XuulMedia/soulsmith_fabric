@@ -3,11 +3,11 @@
   "group": "gold_ingot",
   "ingredients": [
     {
-      "item": "soulsmith:tin_block"
+      "item": "soulsmith:block_tin"
     }
   ],
   "result": {
-    "item": "soulsmith:tin_ingot",
+    "item": "soulsmith:ingot_tin",
     "count": 9
   }
 }
