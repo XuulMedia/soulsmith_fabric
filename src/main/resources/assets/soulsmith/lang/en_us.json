@@ -4,11 +4,12 @@
   "item.soulsmith.rykle" : "Rykle Crystal",
   "item.soulsmith.shroud_crystal" : "Shroud Crystal",
   "item.soulsmith.tyrellus" : "Tyrellus Crystal",
-  "item.soulsmith.black_bronze_ingot" : "Black-Bronze Ingot",
-  "item.soulsmith.bronze_ingot" : "Bronze Ingot",
-  "item.soulsmith.silver_ingot" : "Silver Ingot",
-  "item.soulsmith.tin_ingot" : "Tin Ingot",
-  "item.soulsmith.steel_ingot" : "Steel Ingot",
+
+  "item.soulsmith.ingot_black_bronze" : "Black-Bronze Ingot",
+  "item.soulsmith.ingot_bronze" : "Bronze Ingot",
+  "item.soulsmith.ingot_silver" : "Silver Ingot",
+  "item.soulsmith.ingot_tin" : "Tin Ingot",
+  "item.soulsmith.ingot_steel" : "Steel Ingot",
 
   "item.soulsmith.bronze_pickaxe" : "Bronze Pickaxe",
   "item.soulsmith.bronze_shovel" : "Bronze Shovel",
@@ -24,25 +25,25 @@
   "item.soulsmith.steel_hoe" : "Steel Hoe",
   "item.soulsmith.steel_hammer" : "Steel Hammer",
 
-  "item.soulsmith.copper_nugget" :  "Copper Nugget",
-  "item.soulsmith.tin_nugget" : "Tin Nugget",
-  "item.soulsmith.bronze_nugget" :  "Bronze Nugget",
-  "item.soulsmith.steel_nugget" : "Steel Nugget",
-  "item.soulsmith.black_bronze_nugget" :  "Black Bronze Nugget",
-  "item.soulsmith.silver_nugget" : "Silver Nugget",
+  "item.soulsmith.nugget_copper" :  "Copper Nugget",
+  "item.soulsmith.nugget_tin" : "Tin Nugget",
+  "item.soulsmith.nugget_bronze" :  "Bronze Nugget",
+  "item.soulsmith.nugget_steel" : "Steel Nugget",
+  "item.soulsmith.nugget_black_bronze" :  "Black Bronze Nugget",
+  "item.soulsmith.nugget_silver" : "Silver Nugget",
 
 
-  "block.soulsmith.rykle_ore" : "Rykle Ore",
-  "block.soulsmith.nether_shroud_crystal_ore" : "Shroud Crystal Ore",
-  "block.soulsmith.end_tyrellus_ore" : "Tyrellus Ore",
-  "block.soulsmith.copper_ore" : "Copper Ore",
-  "block.soulsmith.tin_ore" : "Tin Ore",
-  "block.soulsmith.nether_silver_ore" : "Nether Silver Ore",
+  "block.soulsmith.ore_rykle" : "Rykle Ore",
+  "block.soulsmith.ore_shroud_crystal" : "Shroud Crystal Ore",
+  "block.soulsmith.ore_end_tyrellus" : "Tyrellus Ore",
+  "block.soulsmith.ore_copper" : "Copper Ore",
+  "block.soulsmith.ore_tin" : "Tin Ore",
+  "block.soulsmith.ore_nether_silver" : "Nether Silver Ore",
 
-  "block.soulsmith.tin_block" : "Block of Tin",
-  "block.soulsmith.bronze_block" :  "Block of Bronze",
-  "block.soulsmith.steel_block" : "Block of Steel",
-  "block.soulsmith.black_bronze_block" :  "Block of Black Bronze"
+  "block.soulsmith.block_tin" : "Block of Tin",
+  "block.soulsmith.block_bronze" :  "Block of Bronze",
+  "block.soulsmith.block_steel" : "Block of Steel",
+  "block.soulsmith.block_black_bronze" :  "Block of Black Bronze"
 
 
 
