@@ -1,6 +1,7 @@
 package com.xuul.soulsmith.registry;
 
 import com.xuul.soulsmith.Soulsmith;
+import com.xuul.soulsmith.items.GuiItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -25,6 +26,8 @@ public class ModItems {
     public static final Item NUGGET_STEEL = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item NUGGET_SILVER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
+    public static final Item GUI_ITEM = new GuiItem(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
 
     //Block Items
     public static final BlockItem BLOCK_RYKLE = new BlockItem(ModBlocks.BLOCK_RYKLE, new Item.Settings().group(Soulsmith.ITEM_GROUP));
@@ -40,9 +43,11 @@ public class ModItems {
     public static final BlockItem ORE_TIN = new BlockItem(ModBlocks.ORE_TIN, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem ORE_NETHER_SILVER = new BlockItem(ModBlocks.ORE_NETHER_SILVER, new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
+    public static final BlockItem MACHINE_BLOCK = new BlockItem(ModBlocks.MACHINE_BLOCK, new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
 
-    public static void registerItems() {
+
+    public static void register() {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"rykle"), RYKLE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"shroud_crystal"), SHROUD);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"tyrellus"), TYRELLUS);
@@ -59,6 +64,8 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_steel"), NUGGET_STEEL);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_silver"), NUGGET_SILVER);
 
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"gui_item"), GUI_ITEM);
+
 
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_rykle"), BLOCK_RYKLE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_tin"), BLOCK_TIN);
@@ -72,6 +79,9 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_tyrellus"), ORE_TYRELLUS);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_tin"), ORE_TIN);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_nether_silver"), ORE_NETHER_SILVER);
+
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"machine_block"), MACHINE_BLOCK);
+        
 
 
 

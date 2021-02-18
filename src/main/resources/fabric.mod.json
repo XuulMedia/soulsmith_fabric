@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "com.xuul.soulsmith.Soulsmith"
+    ],
+    "client": [
+      "com.xuul.soulsmith.SoulsmithClient"
     ]
   },
   "mixins": [
