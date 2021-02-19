@@ -1,6 +1,7 @@
 package com.xuul.soulsmith.registry;
 
 import com.xuul.soulsmith.Soulsmith;
+import com.xuul.soulsmith.blocks.BoxBlock;
 import com.xuul.soulsmith.blocks.DemoBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
@@ -10,6 +11,8 @@ import net.minecraft.block.OreBlock;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import javax.swing.*;
 
 public class ModBlocks {
 
@@ -53,10 +56,22 @@ public class ModBlocks {
             .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL)
     );
 
+
+
+//    Blocks with Entities
     public static final Block DEMO_BLOCK = new DemoBlock(FabricBlockSettings.of(Material.METAL).breakByTool(FabricToolTags.PICKAXES, 1)
             .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL)
     );
 
+
+    public static final Block BOX_BLOCK = new BoxBlock(FabricBlockSettings.of(Material.METAL).breakByTool(FabricToolTags.PICKAXES, 1)
+            .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL)
+    );
+
+
+//    BLOCK ID's
+    public static final Identifier DEMOID = new Identifier(Soulsmith.MOD_ID, "demo_block");
+    public static final Identifier BOXID = new Identifier(Soulsmith.MOD_ID, "box_block");
 
 
     public static void register() {
@@ -74,7 +89,8 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "block_black_bronze"), BLOCK_BLACK_BRONZE);
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "block_silver"), BLOCK_SILVER);
 
-        Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "demo_block"), DEMO_BLOCK);
+        Registry.register(Registry.BLOCK, DEMOID, DEMO_BLOCK);
+        Registry.register(Registry.BLOCK, BOXID, BOX_BLOCK);
     }
 
 }

@@ -7,7 +7,7 @@ public class SoulsmithClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-//        GuiRegistry.registerClient();
+        GuiRegistry.registerClient();
 
     }
 }
