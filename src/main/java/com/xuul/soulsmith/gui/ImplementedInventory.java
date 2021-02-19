@@ -1,32 +1,43 @@
-package com.xuul.soulsmith.blocks;
+package com.xuul.soulsmith.gui;
 
+
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
+public interface ImplementedInventory extends Inventory {
 
-public interface MachineImplementedInventory extends Inventory {
     /**
      * Retrieves the item list of this inventory.
      * Must return the same instance every time it's called.
      */
     DefaultedList<ItemStack> getItems();
 
+
+    // Creation
+
     /**
      * Creates an inventory from the item list.
      */
-    static MachineImplementedInventory of(DefaultedList<ItemStack> items) {
+    static ImplementedInventory of(DefaultedList<ItemStack> items) {
         return () -> items;
     }
+
 
     /**
      * Creates a new inventory with the specified size.
      */
-    static MachineImplementedInventory ofSize(int size) {
+    static ImplementedInventory ofSize(int size) {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
+
+
+//    Inventory
 
     /**
      * Returns the inventory size.
@@ -35,7 +46,7 @@ public interface MachineImplementedInventory extends Inventory {
     default int size() {
         return getItems().size();
     }
-
+    
     /**
      * Checks if the inventory is empty.
      * @return true if this inventory has only empty stacks, false otherwise.
@@ -50,7 +61,7 @@ public interface MachineImplementedInventory extends Inventory {
         }
         return true;
     }
-
+    
     /**
      * Retrieves the item in the slot.
      */
@@ -58,7 +69,7 @@ public interface MachineImplementedInventory extends Inventory {
     default ItemStack getStack(int slot) {
         return getItems().get(slot);
     }
-
+    
     /**
      * Removes items from an inventory slot.
      * @param slot  The slot to remove from.
@@ -73,7 +84,7 @@ public interface MachineImplementedInventory extends Inventory {
         }
         return result;
     }
-
+    
     /**
      * Removes all items from an inventory slot.
      * @param slot The slot to remove from.
@@ -82,7 +93,7 @@ public interface MachineImplementedInventory extends Inventory {
     default ItemStack removeStack(int slot) {
         return Inventories.removeStack(getItems(), slot);
     }
-
+    
     /**
      * Replaces the current stack in an inventory slot with the provided stack.
      * @param slot  The inventory slot of which to replace the itemstack.
@@ -97,7 +108,7 @@ public interface MachineImplementedInventory extends Inventory {
             stack.setCount(getMaxCountPerStack());
         }
     }
-
+    
     /**
      * Clears the inventory.
      */
@@ -105,22 +116,34 @@ public interface MachineImplementedInventory extends Inventory {
     default void clear() {
         getItems().clear();
     }
-
+    
     /**
      * Marks the state as dirty.
      * Must be called after changes in the inventory, so that the game can properly save
      * the inventory contents and notify neighboring blocks of inventory changes.
-     */
+     */ 
     @Override
     default void markDirty() {
         // Override if you want behavior.
     }
-
+    
     /**
      * @return true if the player can use the inventory, false otherwise.
-     */
+     */ 
     @Override
     default boolean canPlayerUse(PlayerEntity player) {
         return true;
     }
+
+    /*
+    * defaults items to drop if block is broken
+    * */
+
+//    default void dropEverything(World world, BlockPos pos) {
+//        for (ItemStack is : getItems()) {
+//            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), is));
+//        }
+//        getItems().clear();
+//    }
+
 }

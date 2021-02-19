@@ -43,7 +43,7 @@ public class ModItems {
     public static final BlockItem ORE_TIN = new BlockItem(ModBlocks.ORE_TIN, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem ORE_NETHER_SILVER = new BlockItem(ModBlocks.ORE_NETHER_SILVER, new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
-    public static final BlockItem MACHINE_BLOCK = new BlockItem(ModBlocks.MACHINE_BLOCK, new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final BlockItem MACHINE_BLOCK = new BlockItem(ModBlocks.DEMO_BLOCK, new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
 
 

@@ -1,7 +1,7 @@
 package com.xuul.soulsmith.registry;
 
 import com.xuul.soulsmith.Soulsmith;
-import com.xuul.soulsmith.blocks.MachineBlock;
+import com.xuul.soulsmith.blocks.DemoBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -53,7 +53,7 @@ public class ModBlocks {
             .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL)
     );
 
-    public static final Block MACHINE_BLOCK = new MachineBlock(FabricBlockSettings.of(Material.METAL).breakByTool(FabricToolTags.PICKAXES, 1)
+    public static final Block DEMO_BLOCK = new DemoBlock(FabricBlockSettings.of(Material.METAL).breakByTool(FabricToolTags.PICKAXES, 1)
             .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL)
     );
 
@@ -74,7 +74,7 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "block_black_bronze"), BLOCK_BLACK_BRONZE);
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "block_silver"), BLOCK_SILVER);
 
-        Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "machine_block"), MACHINE_BLOCK);
+        Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "demo_block"), DEMO_BLOCK);
     }
 
 }
