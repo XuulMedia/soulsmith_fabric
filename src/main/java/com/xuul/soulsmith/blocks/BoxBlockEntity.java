@@ -1,64 +1,55 @@
 package com.xuul.soulsmith.blocks;
 
-import com.xuul.soulsmith.gui.BoxScreenHandler;
+import com.xuul.soulsmith.gui.BoxGuiDescription;
 import com.xuul.soulsmith.gui.ImplementedInventory;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
+import org.jetbrains.annotations.Nullable;
 
+import static com.xuul.soulsmith.registry.GuiRegistry.BOX_SCREEN_HANDLER;
 import static com.xuul.soulsmith.registry.ModBlockEntities.BOX_BLOCK_ENTITY;
 
 public class BoxBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
+
+    public static final int INVENTORY_SIZE = 9;
+
+    DefaultedList<ItemStack> items =  DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
 
     public BoxBlockEntity() {
         super(BOX_BLOCK_ENTITY);
     }
 
-
-    //From the ImplementedInventory Interface
-
     @Override
     public DefaultedList<ItemStack> getItems() {
-        return inventory;
-
+        return items;
     }
 
-    //These Methods are from the NamedScreenHandlerFactory Interface
-    //createMenu creates the ScreenHandler itself
-    //getDisplayName will Provide its name which is normally shown at the top
-
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        //We provide *this* to the screenHandler as our class Implements Inventory
-        //Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-        return new BoxScreenHandler(syncId, playerInventory, this);
+    public boolean canPlayerUse(PlayerEntity player) {
+        return pos.isWithinDistance(player.getBlockPos(), 4.5);
     }
 
     @Override
     public Text getDisplayName() {
-        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
+        return new LiteralText(""); // no title
     }
 
+    @Nullable
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
-        Inventories.fromTag(tag, this.inventory);
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new BoxGuiDescription(BOX_SCREEN_HANDLER, syncId, inv, ScreenHandlerContext.create(world, pos));
     }
 
-    @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
-        Inventories.toTag(tag, this.inventory);
-        return tag;
-    }
+
+
+
+
 }
