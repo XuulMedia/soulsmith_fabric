@@ -1,5 +1,6 @@
 package com.xuul.soulsmith.blocks;
 
+import com.xuul.soulsmith.blocks.entities.BoxBlockEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;

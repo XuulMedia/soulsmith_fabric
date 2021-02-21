@@ -1,7 +1,6 @@
 package com.xuul.soulsmith.items;
 
 import com.xuul.soulsmith.gui.AlphaGui;
-import com.xuul.soulsmith.gui.AlphaScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -17,7 +16,7 @@ public class GuiItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        MinecraftClient.getInstance().openScreen(new AlphaScreen(new AlphaGui()));
+        MinecraftClient.getInstance().openScreen(new AlphaGui.AlphaScreen(new AlphaGui()));
         return super.use(world, user, hand);
     }
 }

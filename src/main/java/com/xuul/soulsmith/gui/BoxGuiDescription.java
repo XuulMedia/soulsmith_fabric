@@ -1,14 +1,15 @@
 package com.xuul.soulsmith.gui;
 
-import com.xuul.soulsmith.blocks.BoxBlockEntity;
+import com.xuul.soulsmith.blocks.entities.BoxBlockEntity;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
-import io.github.cottonmc.cotton.gui.networking.NetworkSide;
-import io.github.cottonmc.cotton.gui.networking.ScreenNetworking;
+import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import io.github.cottonmc.cotton.gui.widget.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 
@@ -20,7 +21,7 @@ public class BoxGuiDescription extends SyncedGuiDescription {
     public BoxGuiDescription(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
         super(type, syncId, playerInventory, getBlockInventory(context, BoxBlockEntity.INVENTORY_SIZE), null);
 
-        WGridPanel root = (WGridPanel)this.getRootPanel();
+        WGridPanel root = (WGridPanel) this.getRootPanel();
 
         root.add(new WLabel(new LiteralText("Box Block")), 0, 0);
 
@@ -49,25 +50,17 @@ public class BoxGuiDescription extends SyncedGuiDescription {
 
         this.getRootPanel().validate(this);
 
-
     }
 
+    public static class BoxScreen extends CottonInventoryScreen<BoxGuiDescription> {
+        public BoxScreen(BoxGuiDescription gui, PlayerEntity player, Text title) {
+            super(gui, player, title);
+        }
 
 
-
-//    public BoxGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-//            super(BOX_SCREEN_HANDLER, syncId, playerInventory, getBlockInventory(context, INVENTORY_SIZE), getBlockPropertyDelegate(context));
-//
-//            WGridPanel root = new WGridPanel();
-//            setRootPanel(root);
-//            root.setSize(300, 200);
-//
-//            WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
-//            root.add(itemSlot, 4, 1);
-//
-//            root.add(this.createPlayerInventoryPanel(), 0, 3);
-//
-//            root.validate(this);
-//        }
     }
+}
+
+
+
 

@@ -1,4 +1,4 @@
-package com.xuul.soulsmith.blocks;
+package com.xuul.soulsmith.blocks.entities;
 
 import com.xuul.soulsmith.gui.BoxGuiDescription;
 import com.xuul.soulsmith.gui.ImplementedInventory;
@@ -26,6 +26,11 @@ public class BoxBlockEntity extends BlockEntity implements NamedScreenHandlerFac
     public BoxBlockEntity() {
         super(BOX_BLOCK_ENTITY);
     }
+
+//    @Override
+//    public boolean canExtract(int slot) {
+//        return false;
+//    }
 
     @Override
     public DefaultedList<ItemStack> getItems() {

@@ -1,7 +1,11 @@
-package com.xuul.soulsmith.blocks;
+package com.xuul.soulsmith.blocks.entities;
 
 
+import com.xuul.soulsmith.blocks.AlloySmelterBlock;
+import com.xuul.soulsmith.gui.AlloySmelterGui;
 import com.xuul.soulsmith.gui.ImplementedInventory;
+import com.xuul.soulsmith.recipes.AlloyRecipe;
+import com.xuul.soulsmith.util.InventoryTools;
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import net.fabricmc.fabric.impl.content.registry.FuelRegistryImpl;
 import net.minecraft.block.BlockState;
@@ -22,19 +26,22 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-import static com.xuul.soulsmith.registry.GuiRegistry.ALLOY_FURNACE_SCREEN_HANDLER;
-import static com.xuul.soulsmith.registry.ModBlockEntities.ALLOY_FURNACE_ENTITY;
 
-public class AlloyFurnaceEntity extends BlockEntity
+import java.util.Optional;
+
+import static com.xuul.soulsmith.registry.GuiRegistry.ALLOY_SMELTER_SCREEN_HANDLER;
+import static com.xuul.soulsmith.registry.ModBlockEntities.ALLOY_SMELTER_ENTITY;
+
+public class AlloySmelterEntity extends BlockEntity
         implements NamedScreenHandlerFactory, ImplementedInventory, SidedInventory, InventoryProvider, PropertyDelegateHolder, Tickable {
 
     public static final int INVENTORY_SIZE = 4;
 
     DefaultedList<ItemStack> items =  DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
-
     static final int[] INPUT_SLOTS = new int[] { 0, 1 };
     static final int[] FUEL_SLOT = new int[] { 2 };
     static final int[] OUTPUT_SLOT = new int[] { 3 };
+
     static final int CRAFT_AMOUNT = 3;
     public static final int SMELT_TIME = 400;
 
@@ -42,7 +49,7 @@ public class AlloyFurnaceEntity extends BlockEntity
     int fuel = 0;
     int maxFuel = 0;
 
-    public AlloyFurnaceEntity() {super(ALLOY_FURNACE_ENTITY); }
+    public AlloySmelterEntity() {super(ALLOY_SMELTER_ENTITY); }
 
     @Override
     public void tick() {
@@ -56,9 +63,8 @@ public class AlloyFurnaceEntity extends BlockEntity
         } else {
             progress = 0;
         }
-        int oldFuel = fuel;
         if (fuel > 0) {
-            --fuel;
+            fuel--;
         }
         if (fuel == 0 && isRecipeValid()) {
             Integer fuelAmount = FuelRegistryImpl.INSTANCE.get(items.get(FUEL_SLOT[0]).getItem());
@@ -66,12 +72,8 @@ public class AlloyFurnaceEntity extends BlockEntity
                 InventoryTools.decrementFuel(this, FUEL_SLOT[0]);
                 fuel = fuelAmount;
                 maxFuel = fuelAmount;
-                updateBlockState();
-            } else if (oldFuel != fuel) {
-                updateBlockState();
+//                updateBlockState();
             }
-        } else if (fuel == 0 && oldFuel != fuel) {
-            updateBlockState();
         }
 
     }
@@ -87,17 +89,22 @@ public class AlloyFurnaceEntity extends BlockEntity
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return false;
-    }
-
-    @Override
-    public boolean canExtract(int slot) {
         return slot == OUTPUT_SLOT[0];
     }
 
 
 
-//    NO IDEAD
+
+//    Toggle block lighting
+//    private void updateBlockState() {
+//        if (world.getBlockState(pos).get(AlloySmelterBlock.LIT) != fuel > 0);
+//    }
+
+
+
+//    NO IDEA
+
+
 
     private void smelt() {
         Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(AlloyRecipe.AlloyRecipeType.INSTANCE, this,
@@ -113,6 +120,15 @@ public class AlloyFurnaceEntity extends BlockEntity
                 world);
         return match.isPresent() && InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], match.get().getOutput(), true);
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -140,7 +156,7 @@ public class AlloyFurnaceEntity extends BlockEntity
         @Nullable
         @Override
         public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-            return new AlloyFurnaceGuiDescription(ALLOY_SMELTER_SCREEN_HANDLER, syncId, inv, ScreenHandlerContext.create(world, pos));
+            return new AlloySmelterGui(ALLOY_SMELTER_SCREEN_HANDLER, syncId, inv, ScreenHandlerContext.create(world, pos));
         }
 
 

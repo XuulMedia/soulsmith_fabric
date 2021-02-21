@@ -1,5 +1,6 @@
 package com.xuul.soulsmith.blocks;
 
+import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -7,6 +8,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -15,16 +17,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class AlloyFurnaceBlock extends BlockWithEntity {
+public class AlloySmelterBlock extends BlockWithEntity {
 
-    public AlloyFurnaceBlock(Settings settings) {
+//    public static final BooleanProperty LIT = BooleanProperty.of("lit");
+
+    public AlloySmelterBlock(Settings settings) {
         super(settings);
+//        setDefaultState(getDefaultState().with(LIT, false));
     }
-
 
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
-        return new AlloyFurnaceEntity();
+        return new AlloySmelterEntity();
     }
 
     @Override
@@ -44,19 +48,16 @@ public class AlloyFurnaceBlock extends BlockWithEntity {
     }
 
 
-
 //    DROP ITEMS WHEN BROKEN
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
         BlockEntity entity = world.getBlockEntity(pos);
-        if (entity instanceof AlloyFurnaceEntity) {
-            ItemScatterer.spawn(world, pos, (AlloyFurnaceEntity)entity);
+        if (entity instanceof AlloySmelterEntity) {
+            ItemScatterer.spawn(world, pos, (AlloySmelterEntity)entity);
               world.updateComparators(pos,this);
         }
     }
-
-
 
     @Override
     public boolean hasComparatorOutput(BlockState state) {
@@ -68,6 +69,7 @@ public class AlloyFurnaceBlock extends BlockWithEntity {
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
     }
+
 
 
     //    This method will drop all items onto the ground when the block is broken
