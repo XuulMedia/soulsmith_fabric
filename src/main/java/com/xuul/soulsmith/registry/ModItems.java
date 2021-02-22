@@ -82,7 +82,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_tin"), ORE_TIN);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_nether_silver"), ORE_NETHER_SILVER);
 
-        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"demo_block"), DEMO_BLOCK);
+
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"box_block"), BOX_BLOCK);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"alloy_smelter_block"), ALLOY_SMELTER_BLOCK);
 

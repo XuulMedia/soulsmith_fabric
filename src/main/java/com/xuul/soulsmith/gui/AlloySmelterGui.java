@@ -1,6 +1,5 @@
 package com.xuul.soulsmith.gui;
 
-import com.xuul.soulsmith.blocks.entities.BoxBlockEntity;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import io.github.cottonmc.cotton.gui.widget.WBar;
@@ -8,12 +7,16 @@ import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 
-import static com.xuul.soulsmith.gui.Components.FURNACE_FLAME_BG;
+import static com.xuul.soulsmith.Soulsmith.MOD_ID;
+import static com.xuul.soulsmith.gui.Components.*;
 
 
 public class AlloySmelterGui extends SyncedGuiDescription {
@@ -25,8 +28,13 @@ public class AlloySmelterGui extends SyncedGuiDescription {
 //        super(MRegister.ALLOY_FURNACE_CONTAINER, syncID, playerInventory, getBlockInventory(context),
 //                getBlockPropertyDelegate(context));
 
+//
+//    protected GenericDirectProcessorScreenHandler(ScreenHandlerType<?> type, RecipeType<? extends ProcessingRecipe> recipeType, int syncId, PlayerInventory playerInventory) {
+//        this(type, recipeType, syncId, playerInventory, new SimpleInventory(3), new ArrayPropertyDelegate(4));
+    }
+
     public AlloySmelterGui(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(type, syncId, playerInventory, getBlockInventory(context, BoxBlockEntity.INVENTORY_SIZE), null);
+        super(type, syncId, playerInventory, new SimpleInventory(4),  new ArrayPropertyDelegate(4));
 
 
         WGridPanel root = new WGridPanel();
@@ -43,15 +51,14 @@ public class AlloySmelterGui extends SyncedGuiDescription {
         inputB.setLocation(inputB.getX() + 9, inputB.getY());
         root.add(fuel_slot, 3, 2);
         root.add(output_tile, 7, 1);
-//
-//        fire = new WBar()
-//
-//                (FURNACE_FLAME_BG, Components.FURNACE_FLAME, 1, 2, Direction.UP);
-//        root.add(fire, 3, 1);
-//        progress = new WBar(Components.PROGRESS_BAR_BG, Components.PROGRESS_BAR, 0, 3, Direction.EAST);
-//        root.add(progress, 5, 1);
 
-        root.add(createPlayerInventoryPanel(), 0, 5);
+//        fire = new WBar(new Identifier(MOD_ID, "textures/gui/furnace_flames_bg.png"), new Identifier(MOD_ID, "textures/gui/furnace_flames.png"), 1, 2, WBar.Direction.UP);
+//        root.add(fire, 3, 1);
+//
+//        progress = new WBar(PROGRESS_BAR_BG, PROGRESS_BAR, 0, 3, WBar.Direction.RIGHT);
+//        root.add(progress,5,1);
+
+        root.add(createPlayerInventoryPanel(), 0, 4);
 
 
         root.validate(this);

@@ -101,11 +101,6 @@ public class AlloySmelterEntity extends BlockEntity
 //    }
 
 
-
-//    NO IDEA
-
-
-
     private void smelt() {
         Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(AlloyRecipe.AlloyRecipeType.INSTANCE, this,
                 world);
@@ -121,36 +116,20 @@ public class AlloySmelterEntity extends BlockEntity
         return match.isPresent() && InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], match.get().getOutput(), true);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        @Override
-        public DefaultedList<ItemStack> getItems() {
+    @Override
+       public DefaultedList<ItemStack> getItems() {
             return items;
         }
 
-        @Override
-        public boolean canPlayerUse(PlayerEntity player) {
-            return pos.isWithinDistance(player.getBlockPos(), 4.5);
-        }
 
-        @Override
-        public Text getDisplayName() {
-            return new LiteralText(""); // no title
+    @Override
+    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) { return this; }
+
+
+
+    @Override
+    public Text getDisplayName() {
+        return new LiteralText("Alloy Smelter"); // no title
         }
 
         @Nullable
@@ -161,18 +140,56 @@ public class AlloySmelterEntity extends BlockEntity
 
 
     @Override
-    public PropertyDelegate getPropertyDelegate() {
-        return null;
-    }
-
-    @Override
-    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
-        return null;
-    }
-
-    @Override
     public int[] getAvailableSlots(Direction side) {
-        return new int[0];
+        if (side == Direction.DOWN) {
+            return OUTPUT_SLOT;
+        } else {
+            return side == Direction.UP ? INPUT_SLOTS : FUEL_SLOT;
+        }
+    }
+
+
+    PropertyDelegate propdel = new PropertyDelegate() {
+
+        @Override
+        public int size() {
+            return 4;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0:
+                    progress = value;
+                    break;
+                case 1:
+                    fuel = value;
+                    break;
+                case 2:
+                    maxFuel = value;
+                    break;
+            }
+        }
+
+        @Override
+        public int get(int index) {
+            switch (index) {
+                case 0:
+                    return progress;
+                case 1:
+                    return fuel;
+                case 2:
+                    return maxFuel;
+                case 3:
+                    return SMELT_TIME;
+            }
+            return 0;
+        }
+    };
+
+    @Override
+    public PropertyDelegate getPropertyDelegate() {
+        return propdel;
     }
 
 
