@@ -1,175 +1,258 @@
-package com.xuul.soulsmith.recipes;
-
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-
-import java.lang.reflect.Type;
-
-import static com.xuul.soulsmith.Soulsmith.MOD_ID;
-
-public class AlloyRecipe implements Recipe<Inventory> {
-
-    public static final Identifier ID = new Identifier(MOD_ID, "alloy_smelter_recipe");
-
-    private final Ingredient inputA;
-    private final Ingredient inputB;
-    private int amountA;
-    private int amountB;
-    private final ItemStack output;
-    private final Identifier id;
-
-    public AlloyRecipe(Identifier id, ItemStack output, Ingredient inputA, Ingredient inputB, int amountA, int amountB) {
-        this.id = id;
-        this.inputA = inputA;
-        this.inputB = inputB;
-        this.amountA = amountA;
-        this.amountB = amountB;
-        this.output = output;
-    }
-
-
-
-    @Override
-    public boolean matches(Inventory inv, World world) {
-        if (inv.size() < 3)
-            return false;
-        return (inputA.test(inv.getStack(0)) && inv.getStack(0).getCount() >= amountA
-                && inputB.test(inv.getStack(1)) && inv.getStack(1).getCount() >= amountB)
-                || (inputA.test(inv.getStack(1)) && inv.getStack(1).getCount() >= amountA
-                && inputB.test(inv.getStack(0)) && inv.getStack(0).getCount() >= amountB);
-    }
-
-    @Override
-    public ItemStack craft(Inventory inv) {
-        inv.removeStack(0, amountA);
-        inv.removeStack(1, amountB);
-        return getOutput();
-    }
-
-    @Override
-    public boolean fits(int width, int height) {
-        return false;
-    }
-
-
-    public Ingredient getInputA() {
-        return this.inputA;
-    }
-
-    public Ingredient getInputB() {
-        return this.inputB;
-    }
-
-    @Override
-    public ItemStack getOutput() {
-        return output.copy();
-    }
-
-    @Override
-    public Identifier getId() {
-        return ID;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return AlloyRecipeSerializer.INSTANCE;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return AlloyRecipeType.INSTANCE;
-    }
-
-
-
-
-    public static class AlloyRecipeSerializer implements RecipeSerializer<AlloyRecipe> {
-        public static final AlloyRecipeSerializer INSTANCE = new AlloyRecipeSerializer();
-
-        private AlloyRecipeSerializer() {
-        }
-
-
-        @Override
-        public AlloyRecipe read(Identifier id, JsonObject json) {
-
-                AlloyRecipeJsonFormat recipeJson = new Gson().fromJson(json, AlloyRecipeJsonFormat.class);
-                if ((recipeJson.inputA == null || recipeJson.inputB == null || recipeJson.outputItem == null)) {
-                    throw new JsonSyntaxException("A required attribute is missing!");
-                }
-                if (recipeJson.amountA <= 0)
-                    recipeJson.amountA = 1;
-                if (recipeJson.amountB <= 0)
-                    recipeJson.amountB = 1;
-                if (recipeJson.outputAmount <= 0)
-                    recipeJson.outputAmount = recipeJson.amountA + recipeJson.amountB;
-
-                Ingredient in1 = Ingredient.fromJson(recipeJson.inputA);
-                Ingredient in2 = Ingredient.fromJson(recipeJson.inputB);
-
-                if (recipeJson.outputAmount == 0) recipeJson.outputAmount = 1;
-
-                Item outputItem = Registry.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem))
-                        // Validate the inputted item actually exists
-                        .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.outputItem));
-                ItemStack output = new ItemStack(outputItem, recipeJson.outputAmount);
-
-
-                return new AlloyRecipe(id, output, in1, in2, recipeJson.amountA, recipeJson.amountB);
-        }
-
-        @Override
-        public AlloyRecipe read(Identifier id, PacketByteBuf buf) {
-            Ingredient ingredientA = Ingredient.fromPacket(buf);
-            Ingredient ingredientB = Ingredient.fromPacket(buf);
-            int amountA = buf.readInt();
-            int amountB = buf.readInt();
-            ItemStack output = buf.readItemStack();
-            return new AlloyRecipe(id, output, ingredientA, ingredientB, amountA, amountB);
-        }
-
-        @Override
-        public void write(PacketByteBuf buf, AlloyRecipe recipe) {
-            recipe.inputA.write(buf);
-            recipe.inputB.write(buf);
-            buf.writeInt(recipe.amountA);
-            buf.writeInt(recipe.amountB);
-            buf.writeItemStack(recipe.output);
-
-        }
-    }
-
-
-
-
-    class AlloyRecipeJsonFormat {
-        JsonObject inputA;
-        JsonObject inputB;
-        int amountA;
-        int amountB;
-        String outputItem;
-        int outputAmount;
-    }
-
-    public static class AlloyRecipeType implements RecipeType<AlloyRecipe> {
-        private AlloyRecipeType() {
-        }
-
-        public static final AlloyRecipeType INSTANCE = new AlloyRecipeType();
-    }
-}
-
+//package com.xuul.soulsmith.recipes;
+//
+//
+//import com.google.gson.Gson;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonObject;
+//import com.google.gson.JsonSyntaxException;
+//import net.fabricmc.api.EnvType;
+//import net.fabricmc.api.Environment;
+//import net.minecraft.inventory.Inventory;
+//import net.minecraft.item.Item;
+//import net.minecraft.item.ItemStack;
+//import net.minecraft.recipe.Ingredient;
+//import net.minecraft.recipe.Recipe;
+//import net.minecraft.recipe.RecipeSerializer;
+//import net.minecraft.recipe.RecipeType;
+//import net.minecraft.util.Identifier;
+//import net.minecraft.util.JsonHelper;
+//import net.minecraft.util.collection.DefaultedList;
+//import net.minecraft.util.registry.Registry;
+//import net.minecraft.world.World;
+//
+//import static com.xuul.soulsmith.Soulsmith.MOD_ID;
+//
+//public class AlloyRecipe implements Recipe<Inventory> {
+//
+//    public static final Identifier ID = new Identifier(MOD_ID, "alloy_smelter_recipe");
+//
+//    protected final RecipeType<? extends AlloyRecipe> type;
+//    protected final Identifier id;
+//    protected final String group;
+//    protected final Ingredient inputA;
+//    protected final Ingredient inputB;
+//    protected int amountA;
+//    protected int amountB;
+//    protected final ItemStack output;
+//    protected final int processingTime;
+//
+//    public AlloyRecipe(RecipeType<? extends AlloyRecipe> type, Identifier id, String group, Ingredient inputA, Ingredient inputB, int amountA, int amountB, ItemStack output, int processingTime) {
+//        this.type = type;
+//        this.id = id;
+//        this.group = group;
+//        this.inputA = inputA;
+//        this.inputB = inputB;
+//        this.amountA = amountA;
+//        this.amountB = amountB;
+//        this.output = output;
+//        this.processingTime = processingTime;
+//    }
+//
+//
+//    public boolean matches(Inventory inv, World world) {
+//        if (inv.size() < 3)
+//            return false;
+//        return (inputA.test(inv.getStack(0)) && inv.getStack(0).getCount() >= amountA
+//                && inputB.test(inv.getStack(1)) && inv.getStack(1).getCount() >= amountB)
+//                || (inputA.test(inv.getStack(1)) && inv.getStack(1).getCount() >= amountA
+//                && inputB.test(inv.getStack(0)) && inv.getStack(0).getCount() >= amountB);
+//    }
+//
+//    public ItemStack craft(Inventory inv) {
+//        inv.removeStack(0, amountA);
+//        inv.removeStack(1, amountB);
+//        return this.output.copy();
+//    }
+//
+//    public Ingredient getInputA() {
+//        return this.inputA;
+//    }
+//
+//    public Ingredient getInputB() {
+//        return this.inputB;
+//    }
+//
+//    @Environment(EnvType.CLIENT)
+//    public boolean fits(int width, int height) {
+//        return true;
+//    }
+//
+//    public ItemStack getOutput() {
+//        return this.output;
+//    }
+//
+//    @Environment(EnvType.CLIENT)
+//    public String getGroup() {
+//        return this.group;
+//    }
+//
+//    public int getProcessingTime() {
+//        return this.processingTime;
+//    }
+//
+//    public Identifier getId() {
+//        return this.id;
+//    }
+//
+//    public RecipeType<?> getType() {
+//        return type;
+//    }
+//}
+//
+//        /*NOT SURE WHAT THIS IS FOR*/
+//    public DefaultedList<Ingredient> getPreviewInputs() {
+//        DefaultedList<Ingredient> defaultedList = DefaultedList.of();
+//        defaultedList.add(this.inputA);
+//        defaultedList.add(this.inputB);
+//        return defaultedList;
+//    }
+//
+//
+////
+////
+////
+//
+////
+////    @Override
+////    public ItemStack craft(Inventory inv) {
+////        inv.removeStack(0, amountA);
+////        inv.removeStack(1, amountB);
+////        return getOutput();
+////    }
+////
+////    @Override
+////    public boolean fits(int width, int height) {
+////        return false;
+////    }
+////
+////
+////    public Ingredient getInputA() {
+////        return this.inputA;
+////    }
+////
+////    public Ingredient getInputB() {
+////        return this.inputB;
+////    }
+////
+////    @Override
+////    public ItemStack getOutput() {
+////        return output.copy();
+////    }
+////
+////    @Override
+////    public Identifier getId() {
+////        return ID;
+////    }
+////
+////    @Override
+////    public RecipeSerializer<?> getSerializer() {
+////        return AlloyRecipeSerializer.INSTANCE;
+////    }
+////
+////    @Override
+////    public RecipeType<?> getType() {
+////        return AlloyRecipeType.INSTANCE;
+////    }
+////
+////
+////
+////
+//
+//    class AlloyRecipeJsonFormat {
+//        JsonObject inputA;
+//        JsonObject inputB;
+//        int amountA;
+//        int amountB;
+//        String outputItem;
+//        int outputAmount;
+//}
+//
+//
+///*TODO*/
+//
+//    public static class AlloyRecipeSerializer<T extends AlloyRecipe> implements RecipeSerializer<T>{
+//
+//        @Override
+//        public T read(Identifier id, JsonObject json) {
+////            String string = JsonHelper.getString(json, "group", "");
+////            JsonElement jsonElementA = JsonHelper.hasArray(json, "ingredientA") ? JsonHelper.getArray(json, "ingredientA") : JsonHelper.getObject(json, "ingredientA");
+////            Ingredient ingredientA = Ingredient.fromJson(jsonElementA);
+////            JsonElement jsonElementB = JsonHelper.hasArray(json, "ingredientB") ? JsonHelper.getArray(json, "ingredientB") : JsonHelper.getObject(json, "ingredientB");
+////            Ingredient ingredientB = Ingredient.fromJson(jsonElementB);
+////
+////
+////            String string = JsonHelper.getString(jsonObject, "group", "");
+////            JsonElement jsonElement = JsonHelper.hasArray(jsonObject, "ingredient") ? JsonHelper.getArray(jsonObject, "ingredient") : JsonHelper.getObject(jsonObject, "ingredient");
+////            Ingredient ingredient = Ingredient.fromJson(jsonElement);
+////            JsonObject resultObject = jsonObject.getAsJsonObject("result");
+////            String resultString = JsonHelper.getString(resultObject, "item");
+////            Identifier result = new Identifier(resultString);
+////            int count = JsonHelper.getInt(resultObject, "count", 1);
+////            ItemStack itemStack = new ItemStack(Registry.ITEM.getOrEmpty(result).orElseThrow(() ->
+////                    new IllegalStateException("Item: " + resultString + " does not exist")
+////            ), count);
+////            int i = JsonHelper.getInt(jsonObject, "time", this.processingTime);
+////            return factory.create(identifier, string, ingredient, itemStack, i);
+//
+//
+//
+//
+//
+//                AlloyRecipeJsonFormat recipeJson = new Gson().fromJson(json, AlloyRecipeJsonFormat.class);
+//                if ((recipeJson.inputA == null || recipeJson.inputB == null || recipeJson.outputItem == null)) {
+//                    throw new JsonSyntaxException("A required attribute is missing!");
+//                }
+//                if (recipeJson.amountA <= 0)
+//                    recipeJson.amountA = 1;
+//                if (recipeJson.amountB <= 0)
+//                    recipeJson.amountB = 1;
+//                if (recipeJson.outputAmount <= 0)
+//                    recipeJson.outputAmount = recipeJson.amountA + recipeJson.amountB;
+//
+//                Ingredient inA= Ingredient.fromJson(recipeJson.inputA);
+//                Ingredient inB = Ingredient.fromJson(recipeJson.inputB);
+//            ItemStack out;
+//
+//            Item outItem = Registry.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem))
+//                    .orElseThrow(() -> new JsonSyntaxException(
+//                            "Alloy furnace recipe uses " + recipeJson.outputItem + " which does not exist"));
+//            out = new ItemStack(outItem, recipeJson.outputAmount);
+//
+//
+//                return new AlloyRecipe(id, out, inA, inB, recipeJson.amountA, recipeJson.amountB);
+//        }
+//
+//        @Override
+//        public AlloyRecipe read(Identifier id, PacketByteBuf buf) {
+//            Ingredient ingredientA = Ingredient.fromPacket(buf);
+//            Ingredient ingredientB = Ingredient.fromPacket(buf);
+//            int amountA = buf.readInt();
+//            int amountB = buf.readInt();
+//            ItemStack output = buf.readItemStack();
+//            return new AlloyRecipe(id, output, ingredientA, ingredientB, amountA, amountB);
+//        }
+//
+//        @Override
+//        public void write(PacketByteBuf buf, AlloyRecipe recipe) {
+//            recipe.inputA.write(buf);
+//            recipe.inputB.write(buf);
+//            buf.writeInt(recipe.amountA);
+//            buf.writeInt(recipe.amountB);
+//            buf.writeItemStack(recipe.output);
+//
+//        }
+////    }
+////
+////
+////
+////
+//
+////
+//    public static class AlloyRecipeType implements RecipeType<AlloyRecipe> {
+//        private AlloyRecipeType() {
+//        }
+//
+//        public static final AlloyRecipeType INSTANCE = new AlloyRecipeType();
+////    }
+//}
+//
