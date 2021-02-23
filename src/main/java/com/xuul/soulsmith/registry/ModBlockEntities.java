@@ -1,16 +1,15 @@
 package com.xuul.soulsmith.registry;
 
-import com.xuul.soulsmith.blocks.entities.old.AlloySmelterEntity;
+
+import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
 
 import static com.xuul.soulsmith.registry.Identifiers.ALLOY_ID;
-
-import static com.xuul.soulsmith.registry.ModBlocks.*;
+import static com.xuul.soulsmith.registry.ModBlocks.ALLOY_SMELTER_BLOCK;
 
 
 public class ModBlockEntities {
-
 
     public static BlockEntityType<AlloySmelterEntity> ALLOY_SMELTER_ENTITY;
 
