@@ -1,30 +1,17 @@
 package com.xuul.soulsmith.gui;
 
-import net.minecraft.entity.player.PlayerEntity;
+import com.xuul.soulsmith.registry.GuiRegistry;
+import com.xuul.soulsmith.registry.RecipeRegistry;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.PropertyDelegate;
 
-import static com.xuul.soulsmith.registry.GuiRegistry.ALLOY_SMELTER_SCREEN_HANDLER;
-
-public class AlloySmelterScreenHandler extends ScreenHandler {
-
-    private final Inventory inventory;
-
+public class AlloySmelterScreenHandler extends GenericDirectProcessorScreenHandler {
     public AlloySmelterScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(4));
+        super(GuiRegistry.ALLOY_SMELTER_SCREEN_HANDLER, RecipeRegistry.ALLOYING, syncId, playerInventory);
     }
 
-    public AlloySmelterScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        super(ALLOY_SMELTER_SCREEN_HANDLER, syncId);
-        this.inventory = inventory;
-
+    public AlloySmelterScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
+        super(GuiRegistry.ALLOY_SMELTER_SCREEN_HANDLER, RecipeRegistry.ALLOYING, syncId, playerInventory, inventory, propertyDelegate);
     }
-
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
-    }
-
 }

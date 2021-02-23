@@ -7,41 +7,32 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 
-import static com.xuul.soulsmith.registry.ModBlocks.ALLOYID;
-import static com.xuul.soulsmith.registry.ModBlocks.BOXID;
+import static com.xuul.soulsmith.registry.Identifiers.ALLOY_ID;
+
 
 public class GuiRegistry {
 
-    public static ScreenHandlerType<BoxGuiDescription> BOX_SCREEN_HANDLER;
-    public static ScreenHandlerType<AlloySmelterGui> ALLOY_SMELTER_SCREEN_HANDLER;
+    public static ScreenHandlerType<AlloySmelterScreenHandler> ALLOY_SMELTER_SCREEN_HANDLER =
+            ScreenHandlerRegistry.registerSimple(ALLOY_ID, AlloySmelterScreenHandler::new);;
 
 
 
 
     public static void register() {
 
-        BOX_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(BOXID, (int syncId, PlayerInventory inventory) -> {
-            return new BoxGuiDescription(BOX_SCREEN_HANDLER, syncId, inventory, ScreenHandlerContext.EMPTY);
-        });
-
-
-        ALLOY_SMELTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ALLOYID, (int syncId, PlayerInventory inventory) -> {
-            return new AlloySmelterGui(ALLOY_SMELTER_SCREEN_HANDLER, syncId, inventory, ScreenHandlerContext.EMPTY);
-        });
-
+        ScreenRegistry.<AlloySmelterScreenHandler, GenericDirectProcessorScreen<AlloySmelterScreenHandler>>register(
+                ALLOY_SMELTER_SCREEN_HANDLER,
+                (gui, inventory, title) -> new GenericDirectProcessorScreen<>(gui, inventory.player, title)
+        );
 
     }
 
     public static void registerClient() {
 
-        ScreenRegistry.<BoxGuiDescription, BoxGuiDescription.BoxScreen>register(BOX_SCREEN_HANDLER, (gui, inventory, title) ->
-                new BoxGuiDescription.BoxScreen(gui, inventory.player, title));
-
-
-        ScreenRegistry.<AlloySmelterGui, AlloySmelterGui.AlloySmelterScreen2>register(ALLOY_SMELTER_SCREEN_HANDLER, (gui, inventory, title) ->
-                new AlloySmelterGui.AlloySmelterScreen2(gui, inventory.player, title));
-
-
+        ScreenRegistry.<AlloySmelterScreenHandler, GenericDirectProcessorScreen<AlloySmelterScreenHandler>>register(
+                ALLOY_SMELTER_SCREEN_HANDLER,
+                (gui, inventory, title) -> new GenericDirectProcessorScreen<>(gui, inventory.player, title)
+        );
 
     }
 }

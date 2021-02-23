@@ -1,6 +1,5 @@
 package com.xuul.soulsmith.items;
 
-import com.xuul.soulsmith.gui.AlphaGui;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
