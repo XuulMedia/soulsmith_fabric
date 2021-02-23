@@ -24,6 +24,7 @@ public class GuiRegistry {
             return new BoxGuiDescription(BOX_SCREEN_HANDLER, syncId, inventory, ScreenHandlerContext.EMPTY);
         });
 
+
         ALLOY_SMELTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ALLOYID, (int syncId, PlayerInventory inventory) -> {
             return new AlloySmelterGui(ALLOY_SMELTER_SCREEN_HANDLER, syncId, inventory, ScreenHandlerContext.EMPTY);
         });
@@ -37,8 +38,8 @@ public class GuiRegistry {
                 new BoxGuiDescription.BoxScreen(gui, inventory.player, title));
 
 
-        ScreenRegistry.<AlloySmelterGui, AlloySmelterGui.AlloySmelterScreen>register(ALLOY_SMELTER_SCREEN_HANDLER, (gui, inventory, title) ->
-                new AlloySmelterGui.AlloySmelterScreen(gui, inventory.player, title));
+        ScreenRegistry.<AlloySmelterGui, AlloySmelterGui.AlloySmelterScreen2>register(ALLOY_SMELTER_SCREEN_HANDLER, (gui, inventory, title) ->
+                new AlloySmelterGui.AlloySmelterScreen2(gui, inventory.player, title));
 
 
 
