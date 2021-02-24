@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "soulsmith:block/alloy_smelter_block" }
+  }
+}
