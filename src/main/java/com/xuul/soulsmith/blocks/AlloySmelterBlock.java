@@ -1,17 +1,19 @@
 package com.xuul.soulsmith.blocks;
 
 import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.HorizontalFacingBlock;
+import com.xuul.soulsmith.gui.AlloySmelterScreenHandler;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -20,16 +22,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class AlloySmelterBlock extends BlockWithEntity {
+public class AlloySmelterBlock extends Block implements BlockEntityProvider {
 
-//    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
-//    public static final BooleanProperty LIT = Properties.LIT;
+    private static final Text TITLE = new TranslatableText("container.alloy_smelter");
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final BooleanProperty LIT = Properties.LIT;
 
 
     public AlloySmelterBlock(Settings settings) {
-
         super(settings);
+        this.setDefaultState(getStateManager().getDefaultState().with(LIT, false).with(FACING, Direction.NORTH));
     }
 
     @Override
@@ -37,11 +41,19 @@ public class AlloySmelterBlock extends BlockWithEntity {
         return new AlloySmelterEntity();
     }
 
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        //With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
-        return BlockRenderType.MODEL;
+    @Nullable
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
     }
+
+
+    public boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int type, int data) {
+        super.onSyncedBlockEvent(state, world, pos, type, data);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity != null && blockEntity.onSyncedBlockEvent(type, data);
+    }
+
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -57,6 +69,7 @@ public class AlloySmelterBlock extends BlockWithEntity {
         }
         return ActionResult.SUCCESS;
     }
+
 
 
     //This method will drop all items onto the ground when the block is broken
