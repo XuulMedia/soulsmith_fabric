@@ -1,6 +1,10 @@
 package com.xuul.soulsmith.recipes;
 
-import net.minecraft.inventory.CraftingInventory;
+import com.google.gson.JsonObject;
+import com.xuul.soulsmith.registry.RecipeRegistry;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
@@ -11,19 +15,19 @@ import net.minecraft.world.World;
 
 
 
-public class TestRecipe implements Recipe<CraftingInventory> {
+public class TestRecipe implements Recipe<Inventory> {
     //You can add as much inputs as you want here.
     //It is important to always use Ingredient, so you can support tags.
     private final Ingredient inputA;
     private final Ingredient inputB;
-    private final ItemStack result;
+    private final ItemStack output;
     private final Identifier id;
 
-    public TestRecipe(Identifier id, ItemStack result, Ingredient inputA, Ingredient inputB) {
+    public TestRecipe(Identifier id, Ingredient inputA, Ingredient inputB, ItemStack output) {
         this.id = id;
         this.inputA = inputA;
         this.inputB = inputB;
-        this.result = result;
+        this.output = output;
     }
 
     public Ingredient getInputA() {
@@ -36,7 +40,7 @@ public class TestRecipe implements Recipe<CraftingInventory> {
 
     @Override
     public ItemStack getOutput() {
-        return this.result;
+        return this.output;
     }
 
     @Override
@@ -44,30 +48,26 @@ public class TestRecipe implements Recipe<CraftingInventory> {
         return this.id;
     }
 
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return null;
-    }
-
 
 
 //    USED TO ACTUALLY CRAFT THE ITEM. RETURN A COPY OF GET OUTPUT
 
     @Override
-    public ItemStack craft(CraftingInventory inv) {
-        return this.getOutput().copy();
+    public ItemStack craft(Inventory inv) {return this.getOutput().copy();}
+
+    @Override
+    public boolean matches(Inventory inv, World world) {
+        if(inv.size()< 2) return false;
+        return  inputA.test(inv.getStack(0)) && inputA.test(inv.getStack(1));
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean fits(int width, int height) {
         return true;
     }
 
-    @Override
-    public boolean matches(CraftingInventory inv, World world) {
-        if(inv.size()< 2) return false;
-        return  inputA.test(inv.getStack(0)) && inputA.test(inv.getStack(1));
-    }
+
 
     public static class TestRecipeType implements RecipeType<TestRecipe>{
         private TestRecipeType(){}
@@ -80,6 +80,20 @@ public class TestRecipe implements Recipe<CraftingInventory> {
     public RecipeType<?> getType() {
         return TestRecipeType.INSTANCE;
     }
+
+
+
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return TestRecipeSerializer.INSTANCE;
+    }
+
+
+
+
+
+
 
 
 

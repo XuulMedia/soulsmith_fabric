@@ -31,6 +31,8 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
     public static final BooleanProperty LIT = Properties.LIT;
 
 
+
+
     public AlloySmelterBlock(Settings settings) {
         super(settings);
         this.setDefaultState(getStateManager().getDefaultState().with(LIT, false).with(FACING, Direction.NORTH));
@@ -95,6 +97,8 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
     }
+
+
 
 
 }

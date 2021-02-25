@@ -1,19 +1,23 @@
 package com.xuul.soulsmith.registry;
 
+
 import com.xuul.soulsmith.recipes.TestRecipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import com.xuul.soulsmith.recipes.TestRecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class RecipeRegistry {
-    public static RecipeType<TestRecipe> ALLOYING_RECIPE_TYPE;
 
 
+    public static void register() {
+
+        Registry.register(Registry.RECIPE_SERIALIZER, TestRecipeSerializer.ID,
+                TestRecipeSerializer.INSTANCE);
+        
+
+        Registry.register(Registry.RECIPE_TYPE, new Identifier("test_recipe", TestRecipe.TestRecipeType.ID), TestRecipe.TestRecipeType.INSTANCE);
 
 
-    public static void initialize() {
-//        ALLOYING_RECIPE_TYPE = RecipeType.register(Identifiers.ALLOY_ID.toString());
-//
-//        RecipeSerializer.register(Identifiers.RECIPE_ALLOYING.toString(), AlloyingRecipe.SERIALIZER);
 
     }
 }

@@ -1,9 +1,6 @@
 package com.xuul.soulsmith;
 
-import com.xuul.soulsmith.registry.GuiRegistry;
-import com.xuul.soulsmith.registry.ModBlockEntities;
-import com.xuul.soulsmith.registry.ModBlocks;
-import com.xuul.soulsmith.registry.ModItems;
+import com.xuul.soulsmith.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -28,6 +25,7 @@ public class Soulsmith implements ModInitializer {
         ModBlocks.register();
         ModBlockEntities.register();
         GuiRegistry.register();
+        RecipeRegistry.register();
 
     }
 }

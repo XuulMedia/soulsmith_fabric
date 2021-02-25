@@ -13,6 +13,8 @@
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
 
+  "accessWidener": "soulsmith.accesswidener",
+
   "license": "MIT License",
   "icon": "assets/soulsmith/icon.png",
 

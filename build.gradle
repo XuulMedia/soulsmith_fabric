@@ -3,6 +3,7 @@ plugins {
 	id 'maven-publish'
 }
 
+
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -16,6 +17,11 @@ repositories {
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
 }
+
+minecraft {
+	accessWidener "src/main/resources/soulsmith.accesswidener"
+}
+
 
 dependencies {
 	// To change the versions see the gradle.properties file
