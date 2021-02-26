@@ -1,11 +1,11 @@
 {
-  "type": "soulsmith:test_recipe",
+  "type": "soulsmith:alloy_recipe",
 {
   "inputA" : {
     "item": "soulsmith:ingot_tin"
   },
   "inputB": {
-    "tag": "minecraft:logs"
+    "item": "soulsmith:ingot_tin"
   },
   "outputItem": "soulsmith:ingot_bronze",
   "outputAmount": "1"

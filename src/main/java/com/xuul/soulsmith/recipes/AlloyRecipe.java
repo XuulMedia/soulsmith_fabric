@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 
 
-public class TestRecipe implements Recipe<Inventory> {
+public class AlloyRecipe implements Recipe<Inventory> {
     //You can add as much inputs as you want here.
     //It is important to always use Ingredient, so you can support tags.
     private final Ingredient inputA;
@@ -21,7 +21,7 @@ public class TestRecipe implements Recipe<Inventory> {
     private final ItemStack output;
     private final Identifier id;
 
-    public TestRecipe(Identifier id, Ingredient inputA, Ingredient inputB, ItemStack output) {
+    public AlloyRecipe(Identifier id, Ingredient inputA, Ingredient inputB, ItemStack output) {
         this.id = id;
         this.inputA = inputA;
         this.inputB = inputB;
@@ -67,16 +67,9 @@ public class TestRecipe implements Recipe<Inventory> {
 
 
 
-    public static class TestRecipeType implements RecipeType<TestRecipe>{
-        private TestRecipeType(){}
-        public static final TestRecipeType INSTANCE = new TestRecipeType();
-        public static final String ID = "test_recipe";
-    }
-
-
     @Override
     public RecipeType<?> getType() {
-        return TestRecipeType.INSTANCE;
+        return AlloyRecipeType.INSTANCE;
     }
 
 
@@ -84,9 +77,16 @@ public class TestRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return TestRecipeSerializer.INSTANCE;
+        return AlloyRecipeSerializer.INSTANCE;
     }
 
+
+
+    public static class AlloyRecipeType implements RecipeType<AlloyRecipe>{
+        private AlloyRecipeType(){}
+        public static final AlloyRecipeType INSTANCE = new AlloyRecipeType();
+        public static final String ID = "alloy_recipe";
+    }
 
 }
 
