@@ -1,7 +1,5 @@
 package com.xuul.soulsmith.recipes;
 
-import com.google.gson.JsonObject;
-import com.xuul.soulsmith.registry.RecipeRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.inventory.Inventory;
@@ -88,17 +86,6 @@ public class TestRecipe implements Recipe<Inventory> {
     public RecipeSerializer<?> getSerializer() {
         return TestRecipeSerializer.INSTANCE;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -25,7 +25,7 @@ public class Soulsmith implements ModInitializer {
         ModBlocks.register();
         ModBlockEntities.register();
         GuiRegistry.register();
-        RecipeRegistry.register();
+        ModRecipes.register();
 
     }
 }

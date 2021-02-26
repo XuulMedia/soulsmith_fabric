@@ -24,7 +24,7 @@ public class TestRecipeSerializer implements  RecipeSerializer<TestRecipe> {
     public static final TestRecipeSerializer INSTANCE = new TestRecipeSerializer();
 
     // This will be the "type" field in the json
-    public static final Identifier ID = new Identifier(MOD_ID + ":test_recipe");
+    public static final Identifier ID = new Identifier("soulsmith:test_recipe");
 
 
 

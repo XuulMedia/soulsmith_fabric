@@ -27,8 +27,8 @@ public class AlloySmelterScreenHandler extends ScreenHandler {
 
         this.addSlot(new Slot(inventory, 0, 40, 16));
         this.addSlot(new Slot(inventory, 1, 60, 16));
-//        this.addSlot(new Slot(inventory, 2, 64, 48));
-//        this.addSlot(new Slot(inventory, 3, 32, 32));
+        this.addSlot(new Slot(inventory, 2, 50, 34));
+        this.addSlot(new Slot(inventory, 3, 32, 32));
 
         //This will place the slot in the correct locations for a 3x3 Grid. The slots exist on both server and client!
         //This will not render the background of the slots however, this is the Screens job

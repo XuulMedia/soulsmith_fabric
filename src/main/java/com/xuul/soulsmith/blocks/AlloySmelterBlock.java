@@ -2,9 +2,12 @@ package com.xuul.soulsmith.blocks;
 
 import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
 import com.xuul.soulsmith.gui.AlloySmelterScreenHandler;
+import com.xuul.soulsmith.gui.ImplementedInventory;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -14,9 +17,8 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -24,19 +26,21 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import static com.xuul.soulsmith.Soulsmith.MOD_ID;
+
 public class AlloySmelterBlock extends Block implements BlockEntityProvider {
 
     private static final Text TITLE = new TranslatableText("container.alloy_smelter");
-    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
-    public static final BooleanProperty LIT = Properties.LIT;
-
-
+//    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+//    public static final BooleanProperty LIT = Properties.LIT;
 
 
     public AlloySmelterBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(getStateManager().getDefaultState().with(LIT, false).with(FACING, Direction.NORTH));
+//        this.setDefaultState(getStateManager().getDefaultState().with(LIT, false).with(FACING, Direction.NORTH));
     }
+
+
 
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
@@ -69,6 +73,12 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
                 player.openHandledScreen(screenHandlerFactory);
             }
         }
+        BlockEntity be = world.getBlockEntity(pos);
+        if (be != null && be instanceof AlloySmelterEntity) {
+            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier(MOD_ID, "alloy_smelter"), player,
+                    (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+        }
+
         return ActionResult.SUCCESS;
     }
 
@@ -97,7 +107,6 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
     }
-
 
 
 

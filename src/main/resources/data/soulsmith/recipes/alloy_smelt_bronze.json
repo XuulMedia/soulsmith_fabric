@@ -1,0 +1,13 @@
+{
+  "type": "soulsmith:test_recipe",
+{
+  "inputA" : {
+    "item": "soulsmith:ingot_tin"
+  },
+  "inputB": {
+    "tag": "minecraft:logs"
+  },
+  "outputItem": "soulsmith:ingot_bronze",
+  "outputAmount": "1"
+}
+}

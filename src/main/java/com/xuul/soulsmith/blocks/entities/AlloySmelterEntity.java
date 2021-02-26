@@ -2,7 +2,11 @@ package com.xuul.soulsmith.blocks.entities;
 
 import com.xuul.soulsmith.gui.AlloySmelterScreenHandler;
 import com.xuul.soulsmith.gui.ImplementedInventory;
+import com.xuul.soulsmith.recipes.TestRecipe;
 import com.xuul.soulsmith.registry.ModBlockEntities;
+import com.xuul.soulsmith.registry.ModRecipes;
+import com.xuul.soulsmith.util.InventoryTools;
+import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,13 +15,30 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
 
-public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
+import java.util.Optional;
+
+public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory, Tickable, PropertyDelegateHolder {
+
+
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(4, ItemStack.EMPTY);
+
+    private final int[] INPUT_SLOTS = new int[]{0, 1};
+    private final int[] FUEL_SLOT = new int[]{2};
+    private final int[] OUTPUT_SLOT = new int[]{3};
+
+    public static final int SMELT_TIME = 400;
+
+    int progress = 0;
+    int fuel = 0;
+    int maxFuel = 0;
+
 
     public AlloySmelterEntity() {
         super(ModBlockEntities.ALLOY_SMELTER_ENTITY);
@@ -59,5 +80,119 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
         Inventories.toTag(tag, this.inventory);
         return tag;
     }
+
+    //*TODO add these methods for my recipie to work*/
+
+    @Override
+    public void tick() {
+        if (world.isClient)
+            return;
+        if (progress == SMELT_TIME) {
+            progress = 0;
+            smelt();
+        } else if (isRecipeValid() && fuel > 0) {
+            ++progress;
+        } else {
+            progress = 0;
+        }
+        if (fuel > 0) {
+            --fuel;
+        }
+
+    }
+
+
+    private void smelt() {
+        Optional<TestRecipe> match = world.getRecipeManager().getFirstMatch(TestRecipe.TestRecipeType.INSTANCE, this,
+                world);
+        if (match.isPresent()) {
+            TestRecipe recipe = match.get();
+            InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], recipe.craft(this));
+        }
+    }
+
+
+    private boolean isRecipeValid() {
+        Optional<TestRecipe> match = world.getRecipeManager().getFirstMatch(TestRecipe.TestRecipeType.INSTANCE, this,
+                world);
+        return match.isPresent() && InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], match.get().getOutput(), true);
+    }
+
+    @Override
+    public PropertyDelegate getPropertyDelegate() {
+        return propertyDelegate;
+    }
+
+
+    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+        @Override
+        public int get(int index) {
+            switch (index) {
+                case 0:
+                    return progress;
+                case 1:
+                    return fuel;
+                case 2:
+                    return maxFuel;
+                case 3:
+                    return SMELT_TIME;
+            }
+            return 0;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0:
+                    progress = value;
+                    break;
+                case 1:
+                    fuel = value;
+                    break;
+                case 2:
+                    maxFuel = value;
+                    break;
+            }
+
+        }
+
+        @Override
+        public int size() {
+            return 4;
+        }
+    };
+
+
+
+
+
+//    @Override
+//    public boolean isValidInvStack(int slot, ItemStack stack) {
+//        if (slot == OUTPUT_SLOT[0])
+//            return false;
+//        if(slot == FUEL_SLOT[0])
+//            return FuelRegistryImpl.INSTANCE.get(stack.getItem()) != null;
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean canInsertInvStack(int slot, ItemStack stack, Direction dir) {
+//        if (slot == OUTPUT_SLOT[0])
+//            return false;
+//        if(slot == FUEL_SLOT[0])
+//            return FuelRegistryImpl.INSTANCE.get(stack.getItem()) > 0;
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean canExtractInvStack(int slot, ItemStack stack, Direction dir) {
+//        return slot == OUTPUT_SLOT[0];
+//    }
+
+
+
+
+    /*END OF RECIPIE METHODS*/
+
 }
 
