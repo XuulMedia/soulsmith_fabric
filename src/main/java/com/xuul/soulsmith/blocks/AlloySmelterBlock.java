@@ -1,27 +1,23 @@
 package com.xuul.soulsmith.blocks;
 
 import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
-import com.xuul.soulsmith.gui.AlloySmelterScreenHandler;
-import com.xuul.soulsmith.gui.ImplementedInventory;
+import com.xuul.soulsmith.gui.AlloyGuiDescription;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -50,6 +46,8 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
     @Nullable
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
+
+
         return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
     }
 
@@ -70,13 +68,14 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
 
             if (screenHandlerFactory != null) {
                 //With this call the server will request the client to open the appropriate Screenhandler
-                player.openHandledScreen(screenHandlerFactory);
+                player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
             }
         }
         BlockEntity be = world.getBlockEntity(pos);
         if (be != null && be instanceof AlloySmelterEntity) {
             ContainerProviderRegistry.INSTANCE.openContainer(new Identifier(MOD_ID, "alloy_smelter"), player,
                     (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+            return ActionResult.SUCCESS;
         }
 
         return ActionResult.SUCCESS;

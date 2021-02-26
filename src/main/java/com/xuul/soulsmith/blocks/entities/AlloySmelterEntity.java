@@ -1,26 +1,32 @@
 package com.xuul.soulsmith.blocks.entities;
 
-import com.xuul.soulsmith.gui.AlloySmelterScreenHandler;
+import com.xuul.soulsmith.gui.AlloyGuiDescription;
 import com.xuul.soulsmith.gui.ImplementedInventory;
-import com.xuul.soulsmith.recipes.TestRecipe;
+import com.xuul.soulsmith.recipes.AlloyRecipe;
 import com.xuul.soulsmith.registry.ModBlockEntities;
-import com.xuul.soulsmith.registry.ModRecipes;
 import com.xuul.soulsmith.util.InventoryTools;
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
+import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -60,7 +66,7 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         //We provide *this* to the screenHandler as our class Implements Inventory
         //Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-        return new AlloySmelterScreenHandler(syncId, playerInventory, this);
+        return new AlloyGuiDescription(syncId, playerInventory,  ScreenHandlerContext.create(world, pos));
     }
 
     @Override
@@ -81,7 +87,7 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
         return tag;
     }
 
-    //*TODO add these methods for my recipie to work*/
+    //*TODO see if these methods work*/
 
     @Override
     public void tick() {
@@ -102,21 +108,27 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
     }
 
 
+
     private void smelt() {
-        Optional<TestRecipe> match = world.getRecipeManager().getFirstMatch(TestRecipe.TestRecipeType.INSTANCE, this,
+        Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(AlloyRecipe.AlloyRecipeType.INSTANCE, this,
                 world);
         if (match.isPresent()) {
-            TestRecipe recipe = match.get();
+            AlloyRecipe recipe = match.get();
             InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], recipe.craft(this));
         }
     }
 
 
+
+
+
     private boolean isRecipeValid() {
-        Optional<TestRecipe> match = world.getRecipeManager().getFirstMatch(TestRecipe.TestRecipeType.INSTANCE, this,
+        Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(AlloyRecipe.AlloyRecipeType.INSTANCE, this,
                 world);
         return match.isPresent() && InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], match.get().getOutput(), true);
     }
+
+    /**/
 
     @Override
     public PropertyDelegate getPropertyDelegate() {

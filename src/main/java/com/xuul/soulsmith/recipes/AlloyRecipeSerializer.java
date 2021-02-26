@@ -1,37 +1,32 @@
 package com.xuul.soulsmith.recipes;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 
-import static com.xuul.soulsmith.Soulsmith.MOD_ID;
-
-public class TestRecipeSerializer implements  RecipeSerializer<TestRecipe> {
+public class AlloyRecipeSerializer implements  RecipeSerializer<AlloyRecipe> {
 
 
-    private TestRecipeSerializer() {
+    private AlloyRecipeSerializer() {
     }
 
-    public static final TestRecipeSerializer INSTANCE = new TestRecipeSerializer();
+    public static final AlloyRecipeSerializer INSTANCE = new AlloyRecipeSerializer();
 
     // This will be the "type" field in the json
-    public static final Identifier ID = new Identifier("soulsmith:test_recipe");
+    public static final Identifier ID = new Identifier("soulsmith:alloy_recipe");
 
 
 
     /*TODO add validation to this code*/
     // Turns json into Recipe
-    public TestRecipe read(Identifier identifier, JsonObject json) {
-        TestRecipeJsonFormat recipeJson = new Gson().fromJson(json, TestRecipeJsonFormat.class);
+    public AlloyRecipe read(Identifier identifier, JsonObject json) {
+        AlloyRecipeJsonFormat recipeJson = new Gson().fromJson(json, AlloyRecipeJsonFormat.class);
 
         // Ingredient easily turns JsonObjects of the correct format into Ingredients
         Ingredient inputA = Ingredient.fromJson(recipeJson.inputA);
@@ -41,28 +36,28 @@ public class TestRecipeSerializer implements  RecipeSerializer<TestRecipe> {
         Item outputItem = Registry.ITEM.getOrEmpty(new Identifier(recipeJson.outputItem)).get();
         ItemStack output = new ItemStack(outputItem, recipeJson.outputAmount);
 
-        return new TestRecipe(identifier, inputA, inputB, output);
+        return new AlloyRecipe(identifier, inputA, inputB, output);
 
     }
 
     // Turns PacketByteBuf into Recipe
-    public TestRecipe read(Identifier identifier, PacketByteBuf packetByteBuf) {
+    public AlloyRecipe read(Identifier identifier, PacketByteBuf packetByteBuf) {
         // Make sure the read in the same order you have written!
         Ingredient inputA = Ingredient.fromPacket(packetByteBuf);
         Ingredient inputB = Ingredient.fromPacket(packetByteBuf);
         ItemStack output = packetByteBuf.readItemStack();
-        return new TestRecipe(identifier, inputA, inputB, output);
+        return new AlloyRecipe(identifier, inputA, inputB, output);
     }
 
     @Override
-    public void write(PacketByteBuf buf, TestRecipe recipe) {
+    public void write(PacketByteBuf buf, AlloyRecipe recipe) {
         recipe.getInputA().write(buf);
         recipe.getInputB().write(buf);
         buf.writeItemStack(recipe.getOutput());
     }
 
 
-    class TestRecipeJsonFormat {
+    class AlloyRecipeJsonFormat {
         JsonObject inputA;
         JsonObject inputB;
         String outputItem;
