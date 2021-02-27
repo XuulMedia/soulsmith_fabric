@@ -2,6 +2,7 @@ package com.xuul.soulsmith.recipes;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -63,6 +64,8 @@ public class AlloyRecipeSerializer implements  RecipeSerializer<AlloyRecipe> {
         String outputItem;
         int outputAmount;
     }
+
+
 
 }
 

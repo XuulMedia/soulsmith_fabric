@@ -2,6 +2,7 @@ package com.xuul.soulsmith.blocks;
 
 import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
 import com.xuul.soulsmith.gui.AlloyGuiDescription;
+import com.xuul.soulsmith.registry.ModBlockEntities;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -59,27 +60,40 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
     }
 
 
-    @Override
+//    @Override
+//    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+//        if (!world.isClient) {
+//            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
+//            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
+//            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+//
+//            if (screenHandlerFactory != null) {
+//                //With this call the server will request the client to open the appropriate Screenhandler
+//                player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+//            }
+//        }
+//        BlockEntity be = world.getBlockEntity(pos);
+//        if (be != null && be instanceof AlloySmelterEntity) {
+//            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier(MOD_ID, "alloy_smelter"), player,
+//                    (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+//            return ActionResult.SUCCESS;
+//        }
+//
+//        return ActionResult.SUCCESS;
+//    }
+
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
-            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
-            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-
-            if (screenHandlerFactory != null) {
-                //With this call the server will request the client to open the appropriate Screenhandler
-                player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            }
-        }
-        BlockEntity be = world.getBlockEntity(pos);
-        if (be != null && be instanceof AlloySmelterEntity) {
-            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier(MOD_ID, "alloy_smelter"), player,
-                    (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+        if (world.isClient) {
             return ActionResult.SUCCESS;
+        } else {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity != null && AlloySmelterEntity.class.isAssignableFrom(blockEntity.getClass())) {
+                player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
+            }
+            return ActionResult.CONSUME;
         }
-
-        return ActionResult.SUCCESS;
     }
+
 
 
 
@@ -106,6 +120,7 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
     }
+
 
 
 

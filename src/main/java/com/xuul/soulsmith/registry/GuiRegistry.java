@@ -7,7 +7,6 @@ import com.xuul.soulsmith.gui.AlloyGuiDescription;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 
@@ -31,7 +30,7 @@ public class GuiRegistry {
 
         /*LIBGUI*/
         ALLOY_SMELTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ALLOY_ID, (int syncId, PlayerInventory inventory) ->
-                new AlloyGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY));
+                new AlloyGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY, world, recipeType));
 
     }
 

@@ -1,5 +1,5 @@
 {
-  "type": "soulsmith:alloy_smelter",
+  "type": "soulsmith:alloy_recipe",
 {
   "inputA" : {
     "item": "soulsmith:ingot_tin"

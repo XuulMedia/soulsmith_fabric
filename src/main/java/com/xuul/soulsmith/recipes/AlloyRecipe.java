@@ -38,7 +38,7 @@ public class AlloyRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack getOutput() {
-        return this.output;
+        return this.output.copy();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AlloyRecipe implements Recipe<Inventory> {
 //    USED TO ACTUALLY CRAFT THE ITEM. RETURN A COPY OF GET OUTPUT
 
     @Override
-    public ItemStack craft(Inventory inv) {return this.getOutput().copy();}
+    public ItemStack craft(Inventory inv) {return this.getOutput();}
 
     @Override
     public boolean matches(Inventory inv, World world) {
