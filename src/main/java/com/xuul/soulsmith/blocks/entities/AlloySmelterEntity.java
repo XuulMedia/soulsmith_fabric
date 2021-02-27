@@ -6,14 +6,11 @@ import com.xuul.soulsmith.recipes.AlloyRecipe;
 import com.xuul.soulsmith.registry.ModBlockEntities;
 import com.xuul.soulsmith.util.InventoryTools;
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
-import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Recipe;
@@ -25,7 +22,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -35,11 +31,12 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
 
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
+
     private final int[] INPUT_SLOTS = new int[]{0, 1};
     private final int[] FUEL_SLOT = new int[]{2};
     private final int[] OUTPUT_SLOT = new int[]{3};
 
-    public static final int SMELT_TIME = 400;
+    public static final int SMELT_TIME = 1;
 
     int progress = 0;
     int fuel = 0;
@@ -48,7 +45,7 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
 
     public AlloySmelterEntity() {
         super(ModBlockEntities.ALLOY_SMELTER_ENTITY);
-    }
+            }
 
     //From the ImplementedInventory Interface
 
@@ -91,7 +88,7 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
 
     @Override
     public void tick() {
-        if (world.isClient)
+        if (world == null || world.isClient)
             return;
         if (progress == SMELT_TIME) {
             progress = 0;
@@ -108,15 +105,33 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
     }
 
 
-
     private void smelt() {
         Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(AlloyRecipe.AlloyRecipeType.INSTANCE, this,
                 world);
         if (match.isPresent()) {
             AlloyRecipe recipe = match.get();
-            InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], recipe.craft(this));
+            craftRecipe(recipe);
         }
     }
+
+
+    protected void craftRecipe(@Nullable Recipe<?> recipe) {
+        ItemStack inputA = inventory.get(0);
+        ItemStack inputB = inventory.get(1);
+        ItemStack output = inventory.get(3);
+        if (recipe != null) {
+            ItemStack recipeOutput = recipe.getOutput();
+            if (output.isEmpty()) {
+                inventory.set(3, recipeOutput.copy());
+            } else if (output.getItem() == recipeOutput.getItem()) {
+                output.increment(recipeOutput.getCount());
+            }
+
+            inputA.decrement(1);
+            inputB.decrement(1);
+        }
+    }
+
 
 
 

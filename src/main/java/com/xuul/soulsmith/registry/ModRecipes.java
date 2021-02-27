@@ -24,7 +24,12 @@ public class ModRecipes {
 
     public static void register() {
 
-        ALLOY_RECIPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(MOD_ID, "alloy_smelter"), AlloyRecipe.AlloyRecipeType.INSTANCE);
+        ALLOY_RECIPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(MOD_ID, "alloy_recipe"), new RecipeType<AlloyRecipe>() {
+            @Override
+            public String toString() {
+                return "alloy_recipe";
+            }
+        });
 
 
 
