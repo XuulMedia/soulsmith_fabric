@@ -36,7 +36,7 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
     private final int[] FUEL_SLOT = new int[]{2};
     private final int[] OUTPUT_SLOT = new int[]{3};
 
-    public static final int SMELT_TIME = 1;
+    public static final int SMELT_TIME = 200;
 
     int progress = 0;
     int fuel = 0;
@@ -188,9 +188,6 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
             return 4;
         }
     };
-
-
-
 
 
 //    @Override

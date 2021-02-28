@@ -22,8 +22,6 @@ public class AlloyGuiDescription extends SyncedGuiDescription {
 
 
 
-
-
     /*TODO find out how to get the recipie to hook into this */
 
     public AlloyGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {

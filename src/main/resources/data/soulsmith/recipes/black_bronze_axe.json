@@ -9,11 +9,11 @@
     "#": {
       "item": "soulsmith:ingot_black_bronze"
     },
-	"x": {
+    "x": {
       "item": "minecraft:stick"
-    
-  },
-  "result": {
-    "item": "soulsmith:black_bronze_axe"
+    },
+    "result": {
+      "item": "soulsmith:black_bronze_axe"
+    }
   }
 }

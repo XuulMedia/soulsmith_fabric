@@ -1,6 +1,6 @@
 {
   "type": "soulsmith:alloy_recipe",
-{
+
   "inputA" : {
     "item": "soulsmith:ingot_tin"
   },
@@ -9,5 +9,4 @@
   },
   "outputItem": "soulsmith:ingot_bronze",
   "outputAmount": "1"
-}
 }

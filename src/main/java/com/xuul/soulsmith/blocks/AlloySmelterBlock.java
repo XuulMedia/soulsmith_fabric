@@ -11,6 +11,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
@@ -24,17 +26,18 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import static com.xuul.soulsmith.Soulsmith.MOD_ID;
+import static com.xuul.soulsmith.registry.GuiRegistry.ALLOY_SMELTER_SCREEN_HANDLER;
 
 public class AlloySmelterBlock extends Block implements BlockEntityProvider {
 
     private static final Text TITLE = new TranslatableText("container.alloy_smelter");
 //    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
-//    public static final BooleanProperty LIT = Properties.LIT;
+
 
 
     public AlloySmelterBlock(Settings settings) {
         super(settings);
-//        this.setDefaultState(getStateManager().getDefaultState().with(LIT, false).with(FACING, Direction.NORTH));
+
     }
 
 
@@ -93,6 +96,7 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
             return ActionResult.CONSUME;
         }
     }
+
 
 
 
