@@ -3,6 +3,7 @@ package com.xuul.soulsmith.blocks.entities;
 import com.xuul.soulsmith.gui.AlloyGuiDescription;
 import com.xuul.soulsmith.gui.ImplementedInventory;
 import com.xuul.soulsmith.recipes.AlloyRecipe;
+import com.xuul.soulsmith.recipes.AlloyRecipeSerializer;
 import com.xuul.soulsmith.registry.ModBlockEntities;
 import com.xuul.soulsmith.util.InventoryTools;
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
@@ -26,6 +27,8 @@ import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+
+import static com.xuul.soulsmith.registry.ModRecipes.ALLOY_RECIPE;
 
 public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory, Tickable, PropertyDelegateHolder {
 
@@ -107,8 +110,7 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
 
 
     private void smelt() {
-        Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(AlloyRecipe.AlloyRecipeType.INSTANCE, this,
-                world);
+        Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(ALLOY_RECIPE, this, world);
         if (match.isPresent()) {
             AlloyRecipe recipe = match.get();
             craftRecipe(recipe);
@@ -137,10 +139,8 @@ public class AlloySmelterEntity extends BlockEntity implements NamedScreenHandle
 
 
 
-
     private boolean isRecipeValid() {
-        Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(AlloyRecipe.AlloyRecipeType.INSTANCE, this,
-                world);
+        Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(ALLOY_RECIPE, this, world);;
         return match.isPresent() && InventoryTools.insertItemstack(this, OUTPUT_SLOT[0], match.get().getOutput(), true);
     }
 

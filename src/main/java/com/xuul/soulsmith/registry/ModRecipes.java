@@ -24,17 +24,8 @@ public class ModRecipes {
 
     public static void register() {
 
-        ALLOY_RECIPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(MOD_ID, "alloy_recipe"), new RecipeType<AlloyRecipe>() {
-            @Override
-            public String toString() {
-                return "alloy_recipe";
-            }
-        });
-
-
-
-        ALLOY_RECIPE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, AlloyRecipeSerializer.ID,
-                AlloyRecipeSerializer.INSTANCE);
+        ALLOY_RECIPE = RecipeType.register("soulsmith:alloy_recipe");
+        Registry.register(Registry.RECIPE_SERIALIZER, AlloyRecipe.ID, AlloyRecipeSerializer.INSTANCE);
 
     }
 }

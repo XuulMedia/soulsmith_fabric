@@ -1,12 +1,10 @@
 {
   "type": "soulsmith:alloy_recipe",
 
-  "inputA" : {
-    "item": "soulsmith:ingot_tin"
-  },
-  "inputB": {
-    "item": "soulsmith:ingot_tin"
-  },
-  "outputItem": "soulsmith:ingot_bronze",
-  "outputAmount": "1"
+  "inputA" : "soulsmith:ingot_tin",
+  "inputB": "soulsmith:ingot_tin",
+  "result": {
+    "id": "soulsmith:ingot_bronze",
+    "Count": 1
+  }
 }

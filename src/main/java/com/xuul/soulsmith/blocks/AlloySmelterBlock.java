@@ -1,13 +1,16 @@
 package com.xuul.soulsmith.blocks;
 
 import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
+import com.xuul.soulsmith.recipes.AlloyRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
@@ -18,6 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
+import static com.xuul.soulsmith.registry.ModRecipes.ALLOY_RECIPE;
 
 public class AlloySmelterBlock extends Block implements BlockEntityProvider {
 
@@ -30,7 +37,6 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
         super(settings);
 
     }
-
 
 
     @Override
@@ -53,40 +59,33 @@ public class AlloySmelterBlock extends Block implements BlockEntityProvider {
         return blockEntity != null && blockEntity.onSyncedBlockEvent(type, data);
     }
 
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
+        // Something that gives the player items should always go through the server.
+        // If you need to notify the client in some way, check in the server and then send a packet to the client.
+        if (!world.isClient()) {
+            // For the sake of simplicity we draw the items off of the player's hands and create an inventory from that.
+            // Usually you use an inventory of yours instead.
+            SimpleInventory inventory = new SimpleInventory(player.getMainHandStack(), player.getOffHandStack());
 
-//    @Override
-//    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-//        if (!world.isClient) {
-//            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
-//            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
-//            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-//
-//            if (screenHandlerFactory != null) {
-//                //With this call the server will request the client to open the appropriate Screenhandler
-//                player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-//            }
-//        }
-//        BlockEntity be = world.getBlockEntity(pos);
-//        if (be != null && be instanceof AlloySmelterEntity) {
-//            ContainerProviderRegistry.INSTANCE.openContainer(new Identifier(MOD_ID, "alloy_smelter"), player,
-//                    (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
-//            return ActionResult.SUCCESS;
-//        }
-//
-//        return ActionResult.SUCCESS;
-//    }
+            // Or use .getAllMatches if you want all of the matches
+            Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(ALLOY_RECIPE, inventory, world);
 
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity != null && AlloySmelterEntity.class.isAssignableFrom(blockEntity.getClass())) {
-                player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
+            if (match.isPresent()) {
+                // Give the player the item and remove from what he has. Make sure to copy the ItemStack to not ruin it!
+                player.inventory.offerOrDrop(world, match.get().getOutput().copy());
+                player.getMainHandStack().decrement(1);
+                player.getOffHandStack().decrement(1);
+                return ActionResult.SUCCESS;
+            } else {
+                // If it doesn't match we tell the player
+                player.sendMessage(new LiteralText("No match!"), false);
+                return ActionResult.FAIL;
             }
-            return ActionResult.CONSUME;
         }
+        return ActionResult.PASS;
     }
+
 
 
 

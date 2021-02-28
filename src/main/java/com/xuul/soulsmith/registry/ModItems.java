@@ -24,6 +24,7 @@ public class ModItems {
     public static final Item NUGGET_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item NUGGET_STEEL = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item NUGGET_SILVER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final Item NUGGET_BLACK_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
 
     //Block Items
@@ -61,6 +62,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_bronze"), NUGGET_BRONZE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_steel"), NUGGET_STEEL);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_silver"), NUGGET_SILVER);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_black_bronze"), NUGGET_BLACK_BRONZE);
 
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_rykle"), BLOCK_RYKLE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_tin"), BLOCK_TIN);
