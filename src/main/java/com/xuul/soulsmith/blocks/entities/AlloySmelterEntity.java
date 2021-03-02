@@ -100,7 +100,7 @@ public class AlloySmelterEntity extends LootableContainerBlockEntity implements 
         if (world.isClient()) {
             return;
         }
-        if (progress == SMELT_TIME) {
+        if (progress >= SMELT_TIME) {
             progress = 0;
             smelt();
         } else if (isRecipeValid() && fuel > 0) {

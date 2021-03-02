@@ -48,12 +48,17 @@ public class AlloyRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack craft(Inventory inv) {
-        return ItemStack.EMPTY;
+        if(!inv.getStack(0).isEmpty() && !inv.getStack(1).isEmpty()  ){
+            inv.removeStack(0,1);
+            inv.removeStack(1,1);
+            return this.output;
+        }
+      return ItemStack.EMPTY;
     }
 
     @Override
     public boolean fits(int width, int height) {
-        return false;
+        return true;
     }
 
     @Override
