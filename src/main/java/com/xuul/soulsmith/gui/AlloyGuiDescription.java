@@ -16,9 +16,6 @@ import static com.xuul.soulsmith.registry.GuiRegistry.ALLOY_SMELTER_SCREEN_HANDL
 public class AlloyGuiDescription extends SyncedGuiDescription {
 
 
-
-    /*TODO find out how to get the recipie to hook into this */
-
     public AlloyGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
         super(ALLOY_SMELTER_SCREEN_HANDLER, syncId, playerInventory,  getBlockInventory(context, 4), getBlockPropertyDelegate(context));
 
@@ -31,6 +28,7 @@ public class AlloyGuiDescription extends SyncedGuiDescription {
         WItemSlot inputB = WItemSlot.of(blockInventory, 1);
         WItemSlot fuel_slot = WItemSlot.of(blockInventory, 2);
         WItemSlot output_tile = WItemSlot.outputOf(blockInventory, 3);
+
 
         root.add(inputA, 2, 1);
         inputA.setLocation(inputA.getX() + 9, inputA.getY());
