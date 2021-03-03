@@ -117,7 +117,7 @@ public class AlloySmelterEntity extends LootableContainerBlockEntity implements 
     private boolean isRecipeValid() {
         Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(ALLOY_RECIPE, this,
                 world);
-        return match.isPresent() && InventoryTools.insertItemstack(this, 3, match.get().getOutput(), true);
+        return match.isPresent();
     }
 
 }

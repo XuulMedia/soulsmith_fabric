@@ -1,40 +1,52 @@
 package com.xuul.soulsmith.recipes;
 
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import static com.xuul.soulsmith.registry.ModRecipes.ALLOY_RECIPE;
+import static com.xuul.soulsmith.registry.ModRecipes.AlloyRecipe_ID;
 
 
 public class AlloyRecipe implements Recipe<Inventory> {
 
-    public static final Identifier ID = new Identifier("soulsmith:alloy_recipe");
-    private final Item inputA;
-    private final Item inputB;
+    private final Ingredient inputA;
+    private final Ingredient inputB;
+    private final int amountA;
+    private final int amountB;
     private final ItemStack output;
+    private final Identifier id;
 
-    public AlloyRecipe(Item inputA, Item inputB, ItemStack output) {
+
+    public AlloyRecipe(Ingredient inputA, Ingredient inputB, int amountA, int amountB, ItemStack output, Identifier id) {
         this.inputA = inputA;
         this.inputB = inputB;
+        this.amountA = amountA;
+        this.amountB = amountB;
         this.output = output;
+        this.id= id;
     }
 
-    public Item getInputA() {
+    public Ingredient getInputA() {
         return this.inputA;
     }
 
-    public Item getInputB() {
+    public Ingredient getInputB() {
         return this.inputB;
+    }
+
+    public int getAmountA() {
+        return amountA;
+    }
+
+    public int getAmountB() {
+        return amountB;
     }
 
     @Override
@@ -42,18 +54,18 @@ public class AlloyRecipe implements Recipe<Inventory> {
         if (inventory.size() < 2) {
             return false;
         }
-        return this.inputA.equals(inventory.getStack(0).getItem()) && this.inputB.equals(inventory.getStack(1).getItem());
+        return inputA.test(inventory.getStack(0)) && inputB.test(inventory.getStack(1));
     }
 
 
     @Override
     public ItemStack craft(Inventory inv) {
-        if(!inv.getStack(0).isEmpty() && !inv.getStack(1).isEmpty()  ){
-            inv.removeStack(0,1);
-            inv.removeStack(1,1);
+        if (this.inputA.isEmpty() && !this.inputB.isEmpty()) {
+            inv.removeStack(0, this.amountA);
+            inv.removeStack(1, this.amountB);
             return this.output;
         }
-      return ItemStack.EMPTY;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -68,7 +80,7 @@ public class AlloyRecipe implements Recipe<Inventory> {
 
     @Override
     public Identifier getId() {
-        return ID;
+        return AlloyRecipe_ID;
     }
 
     @Override
@@ -81,10 +93,5 @@ public class AlloyRecipe implements Recipe<Inventory> {
         return ALLOY_RECIPE;
     }
 
-    public static final Codec<AlloyRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Registry.ITEM.fieldOf("inputA").forGetter(AlloyRecipe::getInputA),
-            Registry.ITEM.fieldOf("inputB").forGetter(AlloyRecipe::getInputB),
-            ItemStack.CODEC.fieldOf("result").forGetter(AlloyRecipe::getOutput)
-    ).apply(instance, AlloyRecipe::new));
-}
 
+}

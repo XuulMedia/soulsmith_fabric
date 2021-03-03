@@ -46,7 +46,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "soulsmith:silver_nugget"
+              "name": "soulsmith:nugget_silver"
             }
           ]
         }
