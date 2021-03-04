@@ -5,11 +5,15 @@ import com.xuul.soulsmith.blocks.AlloySmelterBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.OreBlock;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import java.util.function.ToIntFunction;
 
 import static com.xuul.soulsmith.registry.Identifiers.ALLOY_ID;
 
@@ -60,7 +64,7 @@ public class ModBlocks {
 //    Blocks with Entities
 
     public static final Block ALLOY_SMELTER_BLOCK = new AlloySmelterBlock(FabricBlockSettings.of(Material.METAL).breakByTool(FabricToolTags.PICKAXES, 1)
-            .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL)
+            .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL).lightLevel(createLightLevelFromBlockState(13))
     );
 
 
@@ -85,6 +89,12 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "block_silver"), BLOCK_SILVER);
 
         Registry.register(Registry.BLOCK, ALLOY_ID, ALLOY_SMELTER_BLOCK);
+    }
+
+    private static ToIntFunction<BlockState> createLightLevelFromBlockState(int lightLevel) {
+        return (blockState) -> {
+            return (Boolean) blockState.get(Properties.LIT) ? lightLevel : 0;
+        };
     }
 
 }

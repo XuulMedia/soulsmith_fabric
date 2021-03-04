@@ -29,7 +29,6 @@ public class AlloySmelterEntity extends LootableContainerBlockEntity implements 
 
     public static final int SMELT_TIME = 200;
 
-    public boolean isSmelting = false;
 
     int progress = 0;
     int fuel = 0;
