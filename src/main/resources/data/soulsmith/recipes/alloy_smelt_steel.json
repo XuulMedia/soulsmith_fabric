@@ -1,0 +1,16 @@
+{
+  "type": "soulsmith:alloy_recipe",
+
+  "inputA" :  {
+    "item": "minecraft:iron_ingot"
+  },
+
+  "inputB": {
+    "tag": "minecraft:coals"
+  },
+  "amountA": 1,
+  "amountB": 3,
+  "outputItem": "soulsmith:ingot_steel",
+  "outputAmount": 1
+
+}

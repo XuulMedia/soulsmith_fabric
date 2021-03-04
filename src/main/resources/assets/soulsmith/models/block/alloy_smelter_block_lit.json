@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "soulsmith:blocks/alloy_smelter/bronze_machine_top",
+    "front": "soulsmith:blocks/alloy_smelter/bronze_machine_lit",
+    "side": "soulsmith:blocks/block_bronze"
+  }
+}

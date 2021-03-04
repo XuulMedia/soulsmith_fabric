@@ -1,38 +1,37 @@
 package com.xuul.soulsmith.blocks;
 
 import com.xuul.soulsmith.blocks.entities.AlloySmelterEntity;
-import com.xuul.soulsmith.recipes.AlloyRecipe;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
-import static com.xuul.soulsmith.registry.Identifiers.ALLOY_ID;
-import static com.xuul.soulsmith.registry.ModRecipes.ALLOY_RECIPE;
-
-public class AlloySmelterBlock extends BlockWithEntity{
+public class AlloySmelterBlock extends BlockWithEntity {
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final BooleanProperty LIT = BooleanProperty.of("lit");
 
     public AlloySmelterBlock(Settings settings) {
         super(settings);
+        this.setDefaultState(getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(LIT, false));
     }
+
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
@@ -45,6 +44,12 @@ public class AlloySmelterBlock extends BlockWithEntity{
     }
 
     @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
+        stateManager.add(FACING,LIT);
+
+    }
+
+    @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if (itemStack.hasCustomName()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -52,6 +57,10 @@ public class AlloySmelterBlock extends BlockWithEntity{
                 ((AlloySmelterEntity)blockEntity).setCustomName(itemStack.getName());
             }
         }
+    }
+
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
     }
 
 
@@ -89,16 +98,7 @@ public class AlloySmelterBlock extends BlockWithEntity{
 
 
 
-
-
-
-
-
-
-
-
-/*THIS IS FOR IF NOT BLOCK WITH ENTITY*/
-//
+    /*Needed if not block with entity*/
 //    @Nullable
 //    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
 //        BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -142,7 +142,7 @@ public class AlloySmelterBlock extends BlockWithEntity{
 //        }
 //        return ActionResult.PASS;
 //    }
-
+//
 
 
 

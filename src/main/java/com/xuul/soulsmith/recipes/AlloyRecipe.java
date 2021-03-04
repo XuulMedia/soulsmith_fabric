@@ -60,10 +60,10 @@ public class AlloyRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack craft(Inventory inv) {
-        if (this.inputA.isEmpty() && !this.inputB.isEmpty()) {
+        if (!this.inputA.isEmpty() && !this.inputB.isEmpty()) {
             inv.removeStack(0, this.amountA);
             inv.removeStack(1, this.amountB);
-            return this.output;
+            return this.output.copy();
         }
         return ItemStack.EMPTY;
     }

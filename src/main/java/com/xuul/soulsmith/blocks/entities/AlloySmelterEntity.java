@@ -1,5 +1,6 @@
 package com.xuul.soulsmith.blocks.entities;
 
+import com.xuul.soulsmith.blocks.AlloySmelterBlock;
 import com.xuul.soulsmith.gui.AlloyGuiDescription;
 import com.xuul.soulsmith.recipes.AlloyRecipe;
 import com.xuul.soulsmith.util.InventoryTools;
@@ -26,7 +27,9 @@ public class AlloySmelterEntity extends LootableContainerBlockEntity implements 
     private DefaultedList<ItemStack> inventory;
     private static final int INVENTORY_SIZE = 4;
 
-    public static final int SMELT_TIME = 400;
+    public static final int SMELT_TIME = 200;
+
+    public boolean isSmelting = false;
 
     int progress = 0;
     int fuel = 0;
@@ -84,25 +87,35 @@ public class AlloySmelterEntity extends LootableContainerBlockEntity implements 
 
     @Override
     public void tick() {
-        if (world.isClient()) {
-            return;
-        }
+        if (world.isClient()) {return;}
+
         if (progress >= SMELT_TIME) {
             progress = 0;
             smelt();
-        } else if (isRecipeValid() && fuel > 0) {
+        } else if (isRecipeValid() && fuel >0) {
             ++progress;
         } else {
             progress = 0;
         }
+        int previousFuel = fuel;
+        if(fuel >0){
+            --fuel;
+        }
+
+
         if (fuel == 0 && isRecipeValid()) {
             Integer fuelAmount = FuelRegistryImpl.INSTANCE.get(inventory.get(2).getItem());
             if (fuelAmount != null) {
                 InventoryTools.decrementFuel(this, 2);
                 fuel = fuelAmount;
                 maxFuel = fuelAmount;
+                updateBlockState();
+            } else if (previousFuel != fuel){
+                updateBlockState();
             }
-        }
+        }  else if (fuel == 0 && previousFuel != fuel) {
+        updateBlockState();
+    }
     }
 
     private void smelt() {
@@ -114,10 +127,22 @@ public class AlloySmelterEntity extends LootableContainerBlockEntity implements 
         }
     }
 
-    private boolean isRecipeValid() {
-        Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(ALLOY_RECIPE, this,
-                world);
-        return match.isPresent();
+    private boolean isRecipeValid() {Optional<AlloyRecipe> match = world.getRecipeManager().getFirstMatch(ALLOY_RECIPE, this,
+            world);
+    return match.isPresent();
     }
+
+    private boolean hasFuel(){
+        return FuelRegistryImpl.INSTANCE.get(inventory.get(2).getItem()) != null;
+    }
+
+    private void updateBlockState() {
+        if (hasFuel() != world.getBlockState(pos).get(AlloySmelterBlock.LIT)){
+            this.world.setBlockState(this.pos,this.world.getBlockState(pos).with(AlloySmelterBlock.LIT, hasFuel()));
+
+//            world.setBlockState(pos, getCachedState().with(AlloySmelterBlock.LIT, hasFuel()));
+        }
+    }
+
 
 }

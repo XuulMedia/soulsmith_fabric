@@ -24,5 +24,6 @@ public class ModRecipes {
         ALLOY_RECIPE = RecipeType.register("soulsmith:alloy_recipe");
         Registry.register(Registry.RECIPE_SERIALIZER, AlloyRecipe_ID, AlloyRecipeSerializer.INSTANCE);
 
+
     }
 }

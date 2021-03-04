@@ -1,5 +1,35 @@
 {
   "variants": {
-    "": { "model": "soulsmith:block/alloy_smelter_block" }
+    "facing=east,lit=false": {
+      "model": "soulsmith:block/alloy_smelter_block",
+      "y": 90
+    },
+    "facing=east,lit=true": {
+      "model": "soulsmith:block/alloy_smelter_block_lit",
+      "y": 90
+    },
+    "facing=north,lit=false": {
+      "model": "soulsmith:block/alloy_smelter_block"
+    },
+    "facing=north,lit=true": {
+      "model": "soulsmith:block/alloy_smelter_block_lit"
+    },
+    "facing=south,lit=false": {
+      "model": "soulsmith:block/alloy_smelter_block",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "soulsmith:block/alloy_smelter_block_lit",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "soulsmith:block/alloy_smelter_block",
+      "y": 270
+    },
+    "facing=west,lit=true": {
+      "model": "soulsmith:block/alloy_smelter_block_lit",
+      "y": 270
+    }
   }
+
 }
