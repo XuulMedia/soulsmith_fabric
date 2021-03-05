@@ -1,0 +1,14 @@
+{
+  "type": "soulsmith:manual_grinder_recipe",
+
+  "ingredient" :  {
+    "item": "soulsmith:ingot_tin"
+  },
+
+  "grindStone": {
+    "item": "minecraft:iron_block"
+  },
+  "outputItem": "soulsmith:dust_tin",
+  "outputAmount": 1
+
+}

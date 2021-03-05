@@ -1,8 +1,11 @@
 package com.xuul.soulsmith.registry;
 
 import com.xuul.soulsmith.Soulsmith;
+import com.xuul.soulsmith.util.*;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ToolItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -13,11 +16,13 @@ public class ModItems {
     public static final Item SHROUD = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item TYRELLUS = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
+
     public static final Item INGOT_TIN = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item INGOT_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item INGOT_STEEL = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item INGOT_SILVER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item INGOT_BLACK_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
 
     public static final Item NUGGET_COPPER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item NUGGET_TIN = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
@@ -25,6 +30,30 @@ public class ModItems {
     public static final Item NUGGET_STEEL = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item NUGGET_SILVER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item NUGGET_BLACK_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+
+    public static final Item DUST_COPPER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final Item DUST_TIN = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final Item DUST_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final Item DUST_STEEL = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final Item DUST_SILVER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final Item DUST_BLACK_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+
+    //Tool Items
+    public static final ToolItem STEEL_PICKAXE = new ModPickaxe(SteelToolMaterial.INSTANCE, 6, -2.8F,new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+    public static final ToolItem STEEL_AXE = new ModAxe(SteelToolMaterial.INSTANCE, 10, 1.0F,new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+    public static final ToolItem STEEL_SHOVEL = new ModShovel(SteelToolMaterial.INSTANCE, 5.5F, -3.0F,new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+    public static final ToolItem STEEL_SWORD = new ModSword(SteelToolMaterial.INSTANCE, 8, -2.4F,new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+    public static final ToolItem STEEL_HOE = new ModHoe(SteelToolMaterial.INSTANCE, 1, 0F,new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+//    public static final ToolItem SHEARS_STEEL = new ModShears(SteelToolMaterial.INSTANCE, new Item.Settings().group(Soulsmith.ITEM_GROUP));
+
+
 
 
     //Block Items
@@ -43,6 +72,7 @@ public class ModItems {
 
 
     public static final BlockItem ALLOY_SMELTER_BLOCK = new BlockItem(ModBlocks.ALLOY_SMELTER_BLOCK, new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final BlockItem MANUAL_GRINDER_BLOCK = new BlockItem(ModBlocks.MANUAL_GRINDER_BLOCK, new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
 
 
@@ -64,6 +94,13 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_silver"), NUGGET_SILVER);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"nugget_black_bronze"), NUGGET_BLACK_BRONZE);
 
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"dust_copper"), DUST_COPPER);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"dust_tin"), DUST_TIN);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"dust_bronze"), DUST_BRONZE);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"dust_steel"), DUST_STEEL);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"dust_silver"), DUST_SILVER);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"dust_black_bronze"), DUST_BLACK_BRONZE);
+
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_rykle"), BLOCK_RYKLE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_tin"), BLOCK_TIN);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_bronze"), BLOCK_BRONZE);
@@ -78,21 +115,18 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_nether_silver"), ORE_NETHER_SILVER);
 
 
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_pickaxe"), STEEL_PICKAXE);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_axe"), STEEL_AXE);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_shovel"), STEEL_SHOVEL);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_sword"), STEEL_SWORD);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_hoe"), STEEL_HOE);
+
+
+
+
+
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"alloy_smelter_block"), ALLOY_SMELTER_BLOCK);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"manual_grinder_block"), MANUAL_GRINDER_BLOCK);
 
 
 

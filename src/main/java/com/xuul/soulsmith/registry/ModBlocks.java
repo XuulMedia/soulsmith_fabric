@@ -2,6 +2,7 @@ package com.xuul.soulsmith.registry;
 
 import com.xuul.soulsmith.Soulsmith;
 import com.xuul.soulsmith.blocks.AlloySmelterBlock;
+import com.xuul.soulsmith.blocks.ManualGrinderBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -16,6 +17,7 @@ import net.minecraft.util.registry.Registry;
 import java.util.function.ToIntFunction;
 
 import static com.xuul.soulsmith.registry.Identifiers.ALLOY_ID;
+import static com.xuul.soulsmith.registry.Identifiers.MANUAL_GRINDER_ID;
 
 public class ModBlocks {
 
@@ -67,6 +69,10 @@ public class ModBlocks {
             .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL).lightLevel(createLightLevelFromBlockState(13))
     );
 
+    public static final Block MANUAL_GRINDER_BLOCK = new ManualGrinderBlock(FabricBlockSettings.of(Material.METAL).breakByTool(FabricToolTags.PICKAXES, 1)
+            .requiresTool().strength(3.0F, 3.0F).sounds(BlockSoundGroup.METAL)
+    );
+
 
 
 //    BLOCK ID's
@@ -89,6 +95,7 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, new Identifier(Soulsmith.MOD_ID, "block_silver"), BLOCK_SILVER);
 
         Registry.register(Registry.BLOCK, ALLOY_ID, ALLOY_SMELTER_BLOCK);
+        Registry.register(Registry.BLOCK, MANUAL_GRINDER_ID, MANUAL_GRINDER_BLOCK);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromBlockState(int lightLevel) {
@@ -96,5 +103,7 @@ public class ModBlocks {
             return (Boolean) blockState.get(Properties.LIT) ? lightLevel : 0;
         };
     }
+
+
 
 }

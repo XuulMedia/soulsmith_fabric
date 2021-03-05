@@ -131,13 +131,10 @@ public class AlloySmelterEntity extends LootableContainerBlockEntity implements 
     return match.isPresent();
     }
 
-    private boolean hasFuel(){
-        return FuelRegistryImpl.INSTANCE.get(inventory.get(2).getItem()) != null;
-    }
 
     private void updateBlockState() {
-        if (hasFuel() != world.getBlockState(pos).get(AlloySmelterBlock.LIT)){
-            this.world.setBlockState(this.pos,this.world.getBlockState(pos).with(AlloySmelterBlock.LIT, hasFuel()));
+        if (fuel > 0 != world.getBlockState(pos).get(AlloySmelterBlock.LIT)){
+            this.world.setBlockState(this.pos,this.world.getBlockState(pos).with(AlloySmelterBlock.LIT, fuel > 0));
 
 //            world.setBlockState(pos, getCachedState().with(AlloySmelterBlock.LIT, hasFuel()));
         }

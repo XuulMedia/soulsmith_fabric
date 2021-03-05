@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class AlloySmelterBlock extends BlockWithEntity {
+
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty LIT = BooleanProperty.of("lit");
 
@@ -55,7 +56,7 @@ public class AlloySmelterBlock extends BlockWithEntity {
 
     @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if ((Boolean)state.get(LIT)) {
+        if (state.get(LIT)) {
             double d = (double)pos.getX() + 0.5D;
             double e = (double)pos.getY();
             double f = (double)pos.getZ() + 0.5D;

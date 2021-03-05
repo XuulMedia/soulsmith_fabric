@@ -2,6 +2,7 @@ package com.xuul.soulsmith.gui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
+import io.github.cottonmc.cotton.gui.widget.WBar;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import static com.xuul.soulsmith.registry.GuiRegistry.ALLOY_SMELTER_SCREEN_HANDLER;
 
 public class AlloyGuiDescription extends SyncedGuiDescription {
+
+
 
 
     public AlloyGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
@@ -30,13 +33,12 @@ public class AlloyGuiDescription extends SyncedGuiDescription {
         WItemSlot output_tile = WItemSlot.outputOf(blockInventory, 3);
 
 
-        root.add(inputA, 2, 1);
+        root.add(inputA, 2, 0);
         inputA.setLocation(inputA.getX() + 9, inputA.getY());
-        root.add(inputB, 3, 1);
+        root.add(inputB, 3, 0);
         inputB.setLocation(inputB.getX() + 9, inputB.getY());
         root.add(fuel_slot, 3, 2);
         root.add(output_tile, 7, 1);
-
 
 
         root.add(createPlayerInventoryPanel(), 0, 4);
@@ -56,17 +58,10 @@ public class AlloyGuiDescription extends SyncedGuiDescription {
 
 
 
-
-
     public static class AlloySmelterScreen extends CottonInventoryScreen<AlloyGuiDescription> {
         public AlloySmelterScreen(AlloyGuiDescription description, PlayerEntity player, Text title) {
             super(description, player, title);
         }
     }
-
-
-
-
-
 
 }

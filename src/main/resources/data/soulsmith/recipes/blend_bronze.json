@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "soulsmith:dust_copper",
+      "item": "soulsmith:dust_tin"
+    }
+  ],
+  "result":
+  {
+    "item": "soulsmith:dust_bronze",
+    "count": 9
+  }
+}
