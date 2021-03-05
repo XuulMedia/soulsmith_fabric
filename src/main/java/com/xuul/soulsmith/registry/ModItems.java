@@ -58,6 +58,7 @@ public class ModItems {
 
     //Block Items
     public static final BlockItem BLOCK_RYKLE = new BlockItem(ModBlocks.BLOCK_RYKLE, new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final BlockItem BLOCK_COPPER = new BlockItem(ModBlocks.BLOCK_COPPER, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem BLOCK_TIN = new BlockItem(ModBlocks.BLOCK_TIN, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem BLOCK_BRONZE = new BlockItem(ModBlocks.BLOCK_BRONZE, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem BLOCK_STEEL = new BlockItem(ModBlocks.BLOCK_STEEL, new Item.Settings().group(Soulsmith.ITEM_GROUP));
@@ -67,6 +68,7 @@ public class ModItems {
     public static final BlockItem ORE_RYKLE = new BlockItem(ModBlocks.ORE_RYKLE, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem ORE_SHROUD_CRYSTAL = new BlockItem(ModBlocks.ORE_SHROUD_CRYSTAL, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem ORE_TYRELLUS = new BlockItem(ModBlocks.ORE_TYRELLUS, new Item.Settings().group(Soulsmith.ITEM_GROUP));
+    public static final BlockItem ORE_COPPER = new BlockItem(ModBlocks.ORE_COPPER, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem ORE_TIN = new BlockItem(ModBlocks.ORE_TIN, new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final BlockItem ORE_NETHER_SILVER = new BlockItem(ModBlocks.ORE_NETHER_SILVER, new Item.Settings().group(Soulsmith.ITEM_GROUP));
 

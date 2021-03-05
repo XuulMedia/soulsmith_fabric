@@ -1,7 +1,8 @@
 package com.xuul.soulsmith.blocks.entities;
 
+import com.xuul.soulsmith.recipes.ManualGrindingRecipe;
+import com.xuul.soulsmith.util.InventoryTools;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -12,7 +13,10 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 
+import java.util.Optional;
+
 import static com.xuul.soulsmith.registry.ModBlockEntities.MANUAL_GRINDER_ENTITY;
+import static com.xuul.soulsmith.registry.ModRecipes.MANUAL_GRINDER_RECIPE;
 
 public class ManualGrinderEntity extends LootableContainerBlockEntity {
     private DefaultedList<ItemStack> inventory;
@@ -74,7 +78,23 @@ public class ManualGrinderEntity extends LootableContainerBlockEntity {
 
 
     /*TODO set up a function for click to grind*/
+    private void process(){
+        if (world.isClient()) {return;}
+
+        progress += 20;
+        if(progress >= GRINDING_TIME) {
+            progress = 0;
+            grind();
+        }
+
+    }
+
     private void grind(){
-        return;
+        Optional<ManualGrindingRecipe> match = world.getRecipeManager().getFirstMatch(MANUAL_GRINDER_RECIPE, this,
+                world);
+        if (match.isPresent()) {
+            ManualGrindingRecipe recipe = match.get();
+            InventoryTools.insertItemstack(this, 2, recipe.craft(this));
+        }
     }
 }

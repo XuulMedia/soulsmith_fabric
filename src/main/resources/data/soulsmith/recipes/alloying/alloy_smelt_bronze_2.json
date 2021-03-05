@@ -2,11 +2,11 @@
   "type": "soulsmith:alloy_recipe",
 
   "inputA" :  {
-    "item": "soulsmith:ingot_copper"
+    "item": "soulsmith:ingot_tin"
   },
 
   "inputB": {
-    "item": "soulsmith:ingot_tin"
+    "item": "soulsmith:ingot_copper"
   },
   "amountA": 1,
   "amountB": 1,
