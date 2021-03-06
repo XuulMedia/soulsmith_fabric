@@ -2,7 +2,6 @@ package com.xuul.soulsmith.registry;
 
 import com.xuul.soulsmith.Soulsmith;
 import com.xuul.soulsmith.util.*;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolItem;
@@ -17,6 +16,7 @@ public class ModItems {
     public static final Item TYRELLUS = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
 
 
+    public static final Item INGOT_COPPER = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item INGOT_TIN = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item INGOT_BRONZE = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
     public static final Item INGOT_STEEL = new Item(new Item.Settings().group(Soulsmith.ITEM_GROUP));
@@ -83,6 +83,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"shroud_crystal"), SHROUD);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"tyrellus"), TYRELLUS);
 
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ingot_copper"), INGOT_COPPER);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ingot_tin"), INGOT_TIN);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ingot_bronze"), INGOT_BRONZE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ingot_steel"), INGOT_STEEL);
@@ -104,6 +105,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"dust_black_bronze"), DUST_BLACK_BRONZE);
 
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_rykle"), BLOCK_RYKLE);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_copper"), BLOCK_COPPER);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_tin"), BLOCK_TIN);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_bronze"), BLOCK_BRONZE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"block_steel"), BLOCK_STEEL);
@@ -113,6 +115,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_rykle"), ORE_RYKLE);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_shroud_crystal"), ORE_SHROUD_CRYSTAL);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_tyrellus"), ORE_TYRELLUS);
+        Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_copper"), ORE_COPPER);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_tin"), ORE_TIN);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"ore_nether_silver"), ORE_NETHER_SILVER);
 
@@ -122,9 +125,6 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_shovel"), STEEL_SHOVEL);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_sword"), STEEL_SWORD);
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"steel_hoe"), STEEL_HOE);
-
-
-
 
 
         Registry.register(Registry.ITEM, new Identifier(Soulsmith.MOD_ID,"alloy_smelter_block"), ALLOY_SMELTER_BLOCK);
