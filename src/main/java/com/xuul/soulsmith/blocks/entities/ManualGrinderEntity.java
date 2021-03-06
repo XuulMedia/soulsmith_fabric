@@ -1,5 +1,6 @@
 package com.xuul.soulsmith.blocks.entities;
 
+import com.xuul.soulsmith.gui.ManualGrinderGui;
 import com.xuul.soulsmith.recipes.ManualGrindingRecipe;
 import com.xuul.soulsmith.util.InventoryTools;
 import net.minecraft.block.BlockState;
@@ -9,6 +10,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
@@ -50,7 +52,8 @@ public class ManualGrinderEntity extends LootableContainerBlockEntity {
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return null;
+
+        return new ManualGrinderGui(syncId, playerInventory, ScreenHandlerContext.create(world, pos));
     }
 
     @Override

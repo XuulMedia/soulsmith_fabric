@@ -4,7 +4,6 @@
   "inputA" :  {
     "item": "minecraft:iron_ingot"
   },
-
   "inputB": {
     "tag": "minecraft:coals"
   },

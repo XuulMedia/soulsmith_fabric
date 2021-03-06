@@ -22,7 +22,7 @@ public class ModRecipes {
     public static RecipeType<ManualGrindingRecipe> MANUAL_GRINDER_RECIPE;
 
 
-    public static RecipeSerializer<AlloyRecipe> ALLOY_RECIPE_SERIALIZER;
+//    public static RecipeSerializer<AlloyRecipe> ALLOY_RECIPE_SERIALIZER;
 
 
     public static void register() {

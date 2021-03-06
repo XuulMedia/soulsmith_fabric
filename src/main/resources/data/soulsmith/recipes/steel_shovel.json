@@ -7,13 +7,14 @@
   ],
   "key": {
     "#": {
-      "item": "soulsmith:steel_ingot"
+      "item": "soulsmith:ingot_steel"
     },
     "x": {
       "item": "minecraft:stick"
     },
     "result": {
-      "item": "soulsmith:steel_shovel"
+      "item": "soulsmith:steel_shovel",
+      "count": 1
     }
   }
 }

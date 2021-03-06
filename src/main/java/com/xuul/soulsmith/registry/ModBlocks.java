@@ -25,7 +25,6 @@ public class ModBlocks {
             .requiresTool().strength(3.0f,3.0f).sounds(BlockSoundGroup.STONE)
     );
 
-
     public static final OreBlock ORE_TIN = new OreBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 2)
             .requiresTool().strength(3.0f,3.0f).sounds(BlockSoundGroup.STONE)
     );
